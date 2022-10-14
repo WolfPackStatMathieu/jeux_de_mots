@@ -6,3 +6,6 @@ class Partie :
         self.est_liste_perso=est_liste_perso
         self.id_liste=id_liste
         self.score=score
+
+    
+    
