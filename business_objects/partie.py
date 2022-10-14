@@ -7,5 +7,11 @@ class Partie :
         self.id_liste=id_liste
         self.score=score
 
+    # def transforme_proposition(mot_propose):
+    #     for caractere in mot_propose:
+    #         if 
     
-    
+    # def verifier_mot(mot_propose):
+    #     for caractere in mot_propose:
+
+
