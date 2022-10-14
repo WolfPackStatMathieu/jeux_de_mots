@@ -6,6 +6,4 @@ class Joueur :
     
     def __str__(self) -> str:
         return f"l'identifiant du joueur est {self.id}\nle nom du joueur est {self.nom}\nla liste des top ten est {self.topten}"
-        
-j= Joueur(2,"oussama",[1,2,3])
-print(j)
+    
