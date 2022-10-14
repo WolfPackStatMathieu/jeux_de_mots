@@ -3,7 +3,7 @@ import dotenv
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-from utils.singleton import Singleton
+from src.utils.singleton import Singleton
 
 class DBConnection(metaclass=Singleton):
     """
@@ -11,7 +11,7 @@ class DBConnection(metaclass=Singleton):
     """
     def __init__(self):
         dotenv.load_dotenv(override=True)
-        # Open the connection. 
+        # Open the connection.
         self.__connection = psycopg2.connect(
             host=os.environ["HOST"],
             port=os.environ["PORT"],

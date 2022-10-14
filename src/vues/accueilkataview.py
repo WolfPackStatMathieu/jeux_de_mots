@@ -1,8 +1,8 @@
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from abstractview import AbstractView
-from session import Session
+from src.vues.abstractview import AbstractView
+from src.vues.session import Session
 
 class AccueilKataView (AbstractView) :
 
@@ -17,7 +17,7 @@ class AccueilKataView (AbstractView) :
 
     def display_info(self):
         pass
-        
+
     def make_choice(self):
         reponse = self.__questions.execute()
         if reponse == 'Se connecter' :

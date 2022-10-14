@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from session import Session
+from src.vues.session import Session
 
 
 class AbstractView(ABC):

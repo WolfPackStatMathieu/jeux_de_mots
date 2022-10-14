@@ -1,4 +1,4 @@
-from jeux_de_mots.utils.singleton import Singleton
+from src.utils.singleton import Singleton
 
 
 class Session(metaclass=Singleton):
@@ -9,7 +9,7 @@ class Session(metaclass=Singleton):
         Attributes
         ----------
         id_joueur : int
-        Identifiant du joueur connecté 
+        Identifiant du joueur connecté
 
         pseudo : str
         Pseudo du joueur connecté
