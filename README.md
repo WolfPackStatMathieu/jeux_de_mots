@@ -20,8 +20,12 @@ Depuis VS code faites ctrl+, cela va ouvrir la panneau de config, puis cliquez s
 ```
 
 **Faire ensuite dans un terminal:**
+```
 pip install jedi-language-server
-
+```
+```
 pip install inquirer
-
-pip3 install InquirerPy   (ou peut-être ‘pip’ au lieu de ‘pip3’)
+```
+```
+pip3 install InquirerPy   #(ou peut-être ‘pip’ au lieu de ‘pip3’)
+```
