@@ -128,3 +128,62 @@ class ListeDAO():
             res = cursor.fetchall()
 
         return res
+
+    def supprimer_mot(self, id_mot, id_liste):
+
+        '''Méthode supprimer_mot
+        
+        Permet de supprimer un mot d'une liste (supprime le lien entre le mot et la liste dans la table passage_liste_mot)
+        
+        Parameters
+        ----------
+        id_mot : int
+            Identifiant du mot à supprimer
+        
+        id_liste : int
+            Identifiant de la liste à laquelle le mot appartient
+        
+        
+        Returns
+        --------
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "DELETE FROM passage_liste_mot"
+                " WHERE id_mot = (%(id_mot)s) AND id_liste = (%(id_liste)s) ;"
+                , {"id_mot": id_mot, "id_liste" : id_liste}
+            )
+            cursor.execute("commit;")
+
+
+    def supprimer(self, id_liste):
+
+        '''Méthode supprimer 
+        
+        Permet de supprimer une liste (supprime tous les liens dans la table de passage passage_liste_mot puis supprime la liste de la table liste)
+        
+        Parameters
+        ----------
+
+        id_liste : int
+            Identifiant de la liste à supprimer
+        
+        
+        Returns
+        --------
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "DELETE FROM passage_liste_mot"
+                " WHERE id_liste = (%(id_liste)s) ;"
+                "DELETE FROM liste"
+                " WHERE id_liste = (%(id_liste)s) ;"
+                , {"id_liste" : id_liste})
+            
+            cursor.execute("commit;")

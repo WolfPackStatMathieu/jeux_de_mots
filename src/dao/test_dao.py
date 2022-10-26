@@ -4,9 +4,11 @@ from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.mot_dao import MotDAO
 
-a=ListeDAO().get_mots_by_id_liste(3)
+#ListeDAO().supprimer(3)
 
-#ListeDAO().ajouter_mot(3, 6)
+#ListeDAO().creer(5, 'nouvelle liste')
+print(ListeDAO().get_mots_by_id_liste(4))
+
 #ListeDAO().ajouter(3, "ma liste")
 #print(ListeDAO().get_liste(1))
 
@@ -31,5 +33,4 @@ a=ListeDAO().get_mots_by_id_liste(3)
 #print(MotDAO().get_mots_by_id_liste(1))
 #print(MotDAO().get_mots_by_id_liste(2))
 
-#MotDAO().ajouter('maison')
 
