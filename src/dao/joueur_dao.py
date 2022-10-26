@@ -104,7 +104,7 @@ class JoueurDAO():
                     ,{"pseudo": pseudo})
 
                 res = cursor.fetchone()
-                cursor.execute("commit;")
+                cursor.execute()
             return res
 
    
