@@ -7,8 +7,10 @@ from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
+
+print(ScoreDAO().get_top_10())
 #ScoreDAO().supprimer(2)
-ScoreDAO().update(5, 198)
+#ScoreDAO().update(5, 198)
 
 #PartieDAO().supprimer(3)
 

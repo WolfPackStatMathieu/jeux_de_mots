@@ -35,3 +35,16 @@ class ScoreDAO():
                     ,{"id_score": id_score})
 
             cursor.execute("commit;")
+    
+    def get_top_10(self):
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                    "SELECT score"
+                    " FROM score"
+                    " ORDER BY score DESC ;")
+
+            res=cursor.fetchall()
+        
+        return res
+        
