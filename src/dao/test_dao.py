@@ -3,11 +3,12 @@ from src.dao.db_connection import DBConnection
 from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.mot_dao import MotDAO
+from src.dao.proposition_dao import PropositionDAO
 
-#ListeDAO().supprimer(3)
-
+PropositionDAO().supprimer_all(1)
+PropositionDAO().creer(1, 'radydelipe')
 #ListeDAO().creer(5, 'nouvelle liste')
-print(ListeDAO().get_mots_by_nom_liste('nouvelle liste'))
+#print(ListeDAO().get_mots_by_nom_liste('nouvelle liste'))
 
 #ListeDAO().ajouter(3, "ma liste")
 #print(ListeDAO().get_liste(1))

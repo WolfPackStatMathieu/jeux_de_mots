@@ -202,7 +202,7 @@ class ListeDAO():
         
         Returns
         --------
-        liste : list
+        liste : dict
             Mots de la liste
 
         '''
