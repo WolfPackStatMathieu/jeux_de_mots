@@ -34,21 +34,21 @@ class MotDAO():
 
         return res
 
-    def ajouter(self, mot):
+    def creer(self, mot):
 
-        '''Méthode ajouter
+        '''Méthode créer
         
         Permet d'ajouter un mot 
         
         Parameters
         ----------
-        mot : int
-            Identifiant de la liste
+        mot : str
+            Mot à créer
         
         Returns
         --------
-        liste : list
-            Mots de la liste
+        mot : str
+            Le mot créé
 
         '''
 
@@ -64,3 +64,4 @@ class MotDAO():
             cursor.execute("commit;")
 
         return res
+    

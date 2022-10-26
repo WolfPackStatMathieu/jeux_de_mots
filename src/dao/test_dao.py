@@ -4,6 +4,11 @@ from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.mot_dao import MotDAO
 
+a=ListeDAO().get_mots_by_id_liste(3)
+
+#ListeDAO().ajouter_mot(3, 6)
+#ListeDAO().ajouter(3, "ma liste")
+#print(ListeDAO().get_liste(1))
 
 
 #print(JoueurDAO().get_pseudo_by_id(4))
@@ -26,4 +31,5 @@ from src.dao.mot_dao import MotDAO
 #print(MotDAO().get_mots_by_id_liste(1))
 #print(MotDAO().get_mots_by_id_liste(2))
 
-#MotDAO().ajouter('voiture')
+#MotDAO().ajouter('maison')
+
