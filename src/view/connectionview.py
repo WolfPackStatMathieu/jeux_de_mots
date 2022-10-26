@@ -24,13 +24,20 @@ class ConnectionView(AbstractView):
     def make_choice(self):
         pseudo = ASK_PSEUDO.execute()
         from src.dao.joueur_dao import JoueurDAO
-        if 1 == 1 or pseudo_existe(pseudo) :
+        if JoueurDAO.pseudo_existe(self, pseudo) :
+            #Compléter les infos de la session
+            from src.business_objects.joueur import Joueur
+            joueur = Joueur(10, 'Mathis', [])
+            print(joueur)
+            from src.view.session import Session
+            session = Session(pseudo)
+            print(session.pseudo)
             from src.view.accueilpersoview import AccueilPersoView
             return AccueilPersoView()
-            #Compléter les infos de la session
-            Session().pseudo = user.pseudo
+           
         else :
             print("Le pseudo n'existe pas") 
+            from src.view.accueilkataview import AccueilKataView
             return AccueilKataView()
             
         

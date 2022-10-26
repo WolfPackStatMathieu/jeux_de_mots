@@ -9,7 +9,7 @@ class AccueilPersoView (AbstractView) :
 
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour {Session().user_name}'
+            message=f'Bonjour {Session().pseudo}'
             , choices=[
                 Choice('Jouer')
                 ,Choice('Créer une liste perso')

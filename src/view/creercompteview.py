@@ -23,10 +23,11 @@ class CreerCompteView(AbstractView):
 
     def make_choice(self):
         pseudo = ASK_PSEUDO.execute()
-        if not pseudo_existe(pseudo) :
+        from src.dao.joueur_dao import JoueurDAO
+        if not JoueurDAO.pseudo_existe(self, pseudo) :
             #Le joueur est inséré dans la base de données 
             from src.dao.joueur_dao import JoueurDAO
-            create(pseudo)
+            JoueurDAO.create(self, pseudo = pseudo)
         else :
             #Message d'erreur
             print("Le pseudo existe déjà")
