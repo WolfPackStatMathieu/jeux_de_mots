@@ -7,9 +7,9 @@ from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
+#ScoreDAO().supprimer(2)
+ScoreDAO().update(5, 198)
 
-ScoreDAO().update(1, 30)
-#ScoreDAO().creer(5)
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
