@@ -17,7 +17,6 @@ class ImportationCsv(AbstractImportationListe):
     ----------
     Example
     -------
-
     """
 
     def __init__(self):
@@ -38,35 +37,44 @@ class ImportationCsv(AbstractImportationListe):
         >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationCsv()
         >>> isinstance(ma_liste, ImportationCsv)
+        True
         """
         super().__init__()
 
-        def creer(self,  fichier : str, dossier : str, encodage: str = ' utf-8', separateur : str = ','):
-            """retourne une liste de mos à partir d'un fichier CSV
+    def creer(self,  fichier : str, dossier : str, encodage: str = ' utf-8', separateur : str = ','):
+        """retourne une liste de mos à partir d'un fichier CSV
 
-            Parameters
-            ----------
-            fichier : str
-                nom du fichier
-            dossier : str
-                nom du dossier
-            encodage : str, optional
-                encodage, by default ' utf-8'
-            separateur : str, optional
-                séparateur, by default ','
+        Parameters
+        ----------
+        fichier : str
+            nom du fichier
+        dossier : str
+            nom du dossier
+        encodage : str, optional
+            encodage, by default ' utf-8'
+        separateur : str, optional
+            séparateur, by default ','
 
-            Returns
-            -------
-            liste_mots : list[str]
+        Returns
+        -------
+        liste_mots : list[str]
 
-            Examples
-            --------
-            >>> import csv
-            >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
-            >>> ma_liste = ImportationCvs()
-            """
-            with open(f'{dossier}/{fichier}', newline='') as csvfile:
+        Examples
+        --------
+        >>> import csv
+        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> ma_liste = ImportationCsv()
+        >>> res = ma_liste.creer("listeformatCSV.csv", "C:/Users/mathi/Documents/Ensai/2A/S1/Projet informatique")
+        >>> print(res)
+        ['Apolinne', 'Mathis', 'Mathieu', 'Linh-da', 'Oussama']
+        """
+        liste_res = []
+        with open(f'{dossier}/{fichier}','r', newline='', encoding= encodage) as csvfile:
+            reader = csv.reader(csvfile, delimiter= ',')
+            for row in reader:
+                liste_res.append(row[0])
+        return liste_res
 
-...     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-...     for row in spamreader:
-...         print(', '.join(row))
+if __name__=="__main__":
+    import doctest
+    doctest.testmod()
