@@ -1,5 +1,8 @@
 from compileall import compile_dir
 
+from src.business_objects.proposition import Proposition
+from src.business_objects.code_lettre import CodeLettre
+from src.business_objects.proposition_verifiee import PropositionVerifiee
 
 class Partie :
     '''
@@ -13,96 +16,66 @@ class Partie :
         self.score=score
 
 
-
-
-
-    def majuscule(self, chaine):
-        '''Remplace les minuscules en majuscules d'une chaîne de caractères
-        
-        parameters : str 
-
-        return : str 
-        La chaîne en majuscule
-        '''
-        s=''
-        if chaine==None:
-            return(None)
-        else:
-            for caractere in chaine:
-                s+=caractere.upper()
-            return(s)
-
-    def supprime_accent(self,chaine):
-        '''Supprime les accents d'une chaîne de caracteres
-        
-        parameters : str 
-
-        return : str 
-        La chaîne sans les accents
-        '''
-        s=""
-        if chaine==None:
-            return(None)
-        else : 
-            copie=''
-            for caractere in chaine:
-                copie+=caractere.lower()
-            for caractere in copie:
-                if caractere=='é':
-                    s+='e'
-                elif caractere=='è':
-                    s+='e'
-                elif caractere=='à':
-                    s+='a'
-                elif caractere=='ù':
-                    s+='u'
-                elif caractere=='î':
-                    s+='i'
-                elif caractere=='ï':
-                    s+='i'
-                elif caractere=='ç':
-                    s+='c'
-                elif caractere=='â':
-                    s+='a'
-                elif caractere=='ô':
-                    s+='o'
-                elif caractere=='ê':
-                    s+='e'
-                else:
-                    s+=caractere
-            return(s)
-
-    def transforme_proposition(self, mot_propose):
-        mot_propose=self.supprime_accent(mot_propose)
-        mot_propose=self.majuscule(mot_propose)
-        return(mot_propose)
-
-    def nombre_occurences(self, lettre):
-        compteur=0
-        for caractere in self.mot_objectif:
-            if caractere==lettre:
-                compteur+=1
+    def occurence_lettres(self):
+        lettres=[]
+        for lettre in self.mot_objectif:
+            if lettre not in lettres:
+                lettres.append(lettre)
+        print(lettres)
+        L=[[]*i for i in range(len(lettres))]
+        for i in range(len(lettres)):
+            L[i].append(lettres[i])
+            L[i].append(0)
+            for lettre in self.mot_objectif:
+                if lettre==lettres[i]:
+                    L[i][1]+=1
+        return(L)
 
 
     def lettres_bien_placées(self, mot_propose):
         L=[]
-        for i in range(len(mot_propose)):
-            if mot_propose[i]==self.mot_objectif[i]:
-                L[i].append([mot_propose[i], True])
+        for i in range(len(mot_propose.mot)):
+            if mot_propose.mot[i]==self.mot_objectif[i]:
+                L.append([mot_propose.mot[i], True])
             else: 
-                L[i].append([mot_propose[i], False])
+                L.append([mot_propose.mot[i], False])
         return L
 
-    # def lettres_mal_placées(self, mot_propose):
-    #     L=[]
-    #     for caractere in mot_propose:
-            
+
+    def lettres_mal_placées(self, mot_propose):
+        bien_placées=self.lettres_bien_placées(mot_propose)
+        occurence=self.occurence_lettres()
+        print(occurence)
+        for i in range(len(mot_propose.mot)):
+            lettre=bien_placées[i][0]
+            if bien_placées[i][1]==True:
+                for elm in occurence:
+                    if elm[0]==lettre:
+                        elm[1]-=1
+            if bien_placées[i][1]==False:
+                for elm in occurence:
+                    if elm[0]==lettre:
+                        if elm[1]!=0:
+                            bien_placées[i][1]="Mal placee"
+                            elm[1]-=1
+        return(bien_placées)
+
+    def verifie_proposition(self, mot_propose):
+        verification=self.lettres_mal_placées(mot_propose)
+        liste_lettres=[]
+        for elt in verification:
+            lettre=CodeLettre(elt[0],elt[1])
+            liste_lettres.append(lettre)
+        return(PropositionVerifiee(liste_lettres))
+
 
 
 
 partie1=Partie(1,"HELLO",[], None, None, None)
-mot='école'
-modif=partie1.supprime_accent(mot)
-modif2=partie1.majuscule(modif)
-modif3=partie1.transforme_proposition(mot)
-print(modif3)
+
+proposition=Proposition("école")
+
+# bien_placées=partie1.lettres_mal_placées(proposition)
+# print(bien_placées)
+
+print(partie1.verifie_proposition(proposition))
