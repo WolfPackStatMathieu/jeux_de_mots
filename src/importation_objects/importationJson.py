@@ -13,6 +13,7 @@ from src.importation_objects.abstract_importation_liste import AbstractImportati
 
 class ImportationJson(AbstractImportationListe):
     """_summary_
+
     """
     def __init__(self,):
         """constructeur de ImportationJson
@@ -26,6 +27,7 @@ class ImportationJson(AbstractImportationListe):
         True
         """
         super().__init__()
+
 
 
     def creer(self, fichier : str, dossier : str, encodage: str = ' utf-8'):
@@ -50,17 +52,22 @@ class ImportationJson(AbstractImportationListe):
         >>> import json
         >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
         >>> ma_liste = ImportationJson()
+        >>> res =ma_liste.creer("liste_mots.json", "C:/Users/mathi/Documents/Ensai/2A/S1/Projet informatique")
+        >>> print(res)
+        ['Apolinne', 'Linh-Da', 'Mathieu', 'Mathis', 'Oussama']
 
         """
+        with open(f'{dossier}/{fichier}', 'r') as f:
+            data = json.load(f)
+            liste = data["liste_mots"]
+            liste_res = []
+            for dictionnaire in liste:
+                liste_res.append(dictionnaire["mot"])
+            return liste_res
+
 
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
 
-liste_exemple = {"mots":[
-    {"mot": "Apolinne"},
-    {"mot": "Linh-da"},
-    {"mot": "Mathieu"},
-    {"mot": "Mathis"},
-    {"mot": "Oussama"},
-]}
+
