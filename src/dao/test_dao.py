@@ -4,9 +4,22 @@ from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.mot_dao import MotDAO
 from src.dao.proposition_dao import PropositionDAO
+from src.dao.partie_dao import PartieDAO
+from src.dao.score_dao import ScoreDAO
 
-PropositionDAO().supprimer_all(1)
-PropositionDAO().creer(1, 'radydelipe')
+
+ScoreDAO().update(1, 30)
+#ScoreDAO().creer(5)
+#PartieDAO().supprimer(3)
+
+#PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
+
+#print(JoueurDAO().get_id_by_pseudo('Linh-Da'))
+#PropositionDAO().supprimer_all(1)
+#PropositionDAO().creer(3, 'ahehehe')
+#PropositionDAO().creer(3, 'ahdhehe')
+#PropositionDAO().creer(3, 'msdfpsod')
+
 #ListeDAO().creer(5, 'nouvelle liste')
 #print(ListeDAO().get_mots_by_nom_liste('nouvelle liste'))
 
