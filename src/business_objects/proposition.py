@@ -1,3 +1,4 @@
+import requests as requests
 class Proposition :
     '''
     '''
@@ -5,8 +6,12 @@ class Proposition :
         self.mot=mot
         self.transforme_proposition()
 
-    #def est_autorise(self):
-        #appel à l'API de Wikipédia
+    def est_autorise(self):
+        req=requests.get("https://api.dictionaryapi.dev/api/v2/entries/en/{}".format(self.mot)) 
+        res=req.json()
+        if type(res)==dict:
+            return False
+        return True
 
     def majuscule(self):
         '''Remplace les minuscules en majuscules d'une chaîne de caractères
@@ -73,5 +78,7 @@ class Proposition :
         return(self.mot)
 
 
-proposition=Proposition("école")
+proposition=Proposition("hkzbef")
 print(proposition)
+
+print(proposition.est_autorise())

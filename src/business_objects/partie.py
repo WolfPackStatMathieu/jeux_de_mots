@@ -3,17 +3,30 @@ from compileall import compile_dir
 from src.business_objects.proposition import Proposition
 from src.business_objects.code_lettre import CodeLettre
 from src.business_objects.proposition_verifiee import PropositionVerifiee
+from src.business_objects.difficultes import Difficultes
+from src.business_objects.generer_mot_api import GenererMotApi
+from src.business_objects.generer_mot_liste_perso import GenererMotListePerso
 
 class Partie :
     '''
     '''
-    def __init__(self, id_partie, mot_objectif, liste_mots_proposes, est_liste_perso, id_liste, score):
+    def __init__(self, id_partie, mot_objectif, liste_mots_proposes, est_liste_perso, id_liste, difficultes,score):
         self.id_partie=id_partie
         self.mot_objectif=mot_objectif
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.id_liste=id_liste
+        self.difficultes=difficultes
         self.score=score
+
+
+    def donne_mot_obj(self):
+        if self.est_liste_perso:
+            generer=GenererMotListePerso(self.id_liste)
+        else : 
+            generer=GenererMotApi(self.difficultes.nb_lettres)
+        self.mot_objectif=generer.generer()
+
 
 
     def occurence_lettres(self):
@@ -68,14 +81,26 @@ class Partie :
             liste_lettres.append(lettre)
         return(PropositionVerifiee(liste_lettres))
 
+    def calcul_score(self):
+        coeff_tentatives_max = 1 + 0.1 * (6 - self.difficultes.nb_tentatives)
+        coeff_longueur = 1 + 0.1 *(self.difficultes.nb_lettres - 6)
+        coeff_limite_temps = (self.difficultes.temps - 8) / 8
+        self.score=100 + coeff_tentatives_max * coeff_tentatives_max * coeff_longueur * coeff_limite_temps
 
 
 
-partie1=Partie(1,"HELLO",[], None, None, None)
-
+difficultes=Difficultes(6,8,True,6)
+partie1=Partie(1,"HELLO",[], None, None, difficultes, None)
+partie1.calcul_score()
+print(partie1.score)
 proposition=Proposition("école")
 
 # bien_placées=partie1.lettres_mal_placées(proposition)
 # print(bien_placées)
 
 print(partie1.verifie_proposition(proposition))
+
+
+partie2=Partie(1,None,[], None, None, difficultes, None)
+partie2.donne_mot_obj()
+print(partie2.mot_objectif)
