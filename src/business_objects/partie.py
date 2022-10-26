@@ -8,28 +8,44 @@ from src.business_objects.generer_mot_api import GenererMotApi
 from src.business_objects.generer_mot_liste_perso import GenererMotListePerso
 
 class Partie :
+    '''Classe implémentant une partie
+
+    attributes
+    ----------
+    id_partie : int
+    mot_objectif : str
+    liste_mots_proposes : list(Proposition)
+    est_liste_perso : bool
+    id_liste : int
+    difficultes : Difficultes
+    score : float
     '''
-    '''
-    def __init__(self, id_partie, mot_objectif, liste_mots_proposes, est_liste_perso, id_liste, difficultes,score):
+    def __init__(self, id_partie, liste_mots_proposes, est_liste_perso, id_liste, difficultes):
         self.id_partie=id_partie
-        self.mot_objectif=mot_objectif
         self.liste_mots_proposes=liste_mots_proposes
         self.est_liste_perso=est_liste_perso
         self.id_liste=id_liste
         self.difficultes=difficultes
-        self.score=score
+        self.score=0
+        self.mot_objectif=self.donne_mot_obj()
 
 
     def donne_mot_obj(self):
-        if self.est_liste_perso:
+        '''donne le mot objectif de la partie, soit par l'api random-word-api, soit un mot dans la liste perso
+        return
+        ------
+        le mot objectif  : str
+        '''
+        if self.est_liste_perso==True:
             generer=GenererMotListePerso(self.id_liste)
         else : 
             generer=GenererMotApi(self.difficultes.nb_lettres)
-        self.mot_objectif=generer.generer()
-
+        return(generer.generer())
 
 
     def occurence_lettres(self):
+        '''retourne une liste avec pour chaque lettre apparaissant dans le mot objectif, l'occurence de cette lettre dans le mot objectif
+        '''
         lettres=[]
         for lettre in self.mot_objectif:
             if lettre not in lettres:
@@ -46,6 +62,8 @@ class Partie :
 
 
     def lettres_bien_placées(self, mot_propose):
+        '''retourne une liste avec chaque lettre du mot_propose et True si la lettre est bien placee et False sinon
+        '''
         L=[]
         for i in range(len(mot_propose.mot)):
             if mot_propose.mot[i]==self.mot_objectif[i]:
@@ -56,6 +74,8 @@ class Partie :
 
 
     def lettres_mal_placées(self, mot_propose):
+        '''retourne une liste avec chaque lettre du mot propose, True si la lettre est bien placée, 'Mal placée' si mal placée et False si la lettre n'est pas dans le mot objectif
+        '''
         bien_placées=self.lettres_bien_placées(mot_propose)
         occurence=self.occurence_lettres()
         print(occurence)
@@ -74,6 +94,11 @@ class Partie :
         return(bien_placées)
 
     def verifie_proposition(self, mot_propose):
+        '''Vérifie une proposition
+        return
+        ------
+        La proposition vérifiée (PropositionVerifiee)
+        '''
         verification=self.lettres_mal_placées(mot_propose)
         liste_lettres=[]
         for elt in verification:
@@ -82,6 +107,8 @@ class Partie :
         return(PropositionVerifiee(liste_lettres))
 
     def calcul_score(self):
+        '''calcul le score selon les paramètres de difficulté de la partie
+        '''
         coeff_tentatives_max = 1 + 0.1 * (6 - self.difficultes.nb_tentatives)
         coeff_longueur = 1 + 0.1 *(self.difficultes.nb_lettres - 6)
         coeff_limite_temps = (self.difficultes.temps - 8) / 8
@@ -89,18 +116,8 @@ class Partie :
 
 
 
-difficultes=Difficultes(6,8,True,6)
-partie1=Partie(1,"HELLO",[], None, None, difficultes, None)
-partie1.calcul_score()
-print(partie1.score)
-proposition=Proposition("école")
-
-# bien_placées=partie1.lettres_mal_placées(proposition)
-# print(bien_placées)
-
-print(partie1.verifie_proposition(proposition))
-
-
-partie2=Partie(1,None,[], None, None, difficultes, None)
-partie2.donne_mot_obj()
-print(partie2.mot_objectif)
+difficultes=Difficultes(6,8,True,8)
+partie=Partie(1, [], False, None, difficultes)
+print(partie.mot_objectif)
+proposition=Proposition("ABCDEFGH")
+print(partie.verifie_proposition(proposition))
