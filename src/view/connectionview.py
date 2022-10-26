@@ -26,9 +26,6 @@ class ConnectionView(AbstractView):
         from src.dao.joueur_dao import JoueurDAO
         if JoueurDAO.pseudo_existe(self, pseudo) :
             #Compléter les infos de la session
-            from src.business_objects.joueur import Joueur
-            joueur = Joueur(10, 'Mathis', [])
-            print(joueur)
             from src.view.session import Session
             session = Session(pseudo)
             print(session.pseudo)

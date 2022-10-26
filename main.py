@@ -16,3 +16,7 @@ if __name__ == '__main__':
         current_view.display_info()
         # ask user for a choice
         current_view = current_view.make_choice()
+
+
+
+
