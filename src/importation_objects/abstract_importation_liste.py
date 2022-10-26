@@ -1,8 +1,27 @@
 """classe abstraite pour l'importation des fichiers
+classe mère de ImportationJson, ImportationCsv et ImportationManuelle
 """
-
 from abc import ABC, abstractmethod
 
-class Abstract_importation_liste(ABC):
+class AbstractImportationListe(ABC):
     """classe abstraite pour l'importation des listes
     """
+
+    @abstractmethod
+    def __init__(self):
+        """_summary_
+        """
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        """pour visualiser la lister
+        """
+        pass
+
+    @abstractmethod
+    def creer(self):
+        """renvoie une Liste
+        """
+        pass
+
