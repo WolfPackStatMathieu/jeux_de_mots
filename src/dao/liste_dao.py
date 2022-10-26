@@ -32,11 +32,11 @@ class ListeDAO():
 
         return res
 
-    def ajouter(self, id_joueur, nom_liste):
+    def creer(self, id_joueur, nom_liste):
 
-        '''Méthode ajouter
+        '''Méthode créer
         
-        Permet d'ajouter une nouvelle liste associée à un joueur
+        Permet de créer une nouvelle liste associée à un joueur
         
         Parameters
         ----------
@@ -49,7 +49,7 @@ class ListeDAO():
         
         Returns
         --------
-        liste : list
+        liste : dict
             Une liste vide
 
         '''
@@ -58,11 +58,164 @@ class ListeDAO():
         with connection.cursor() as cursor :
             cursor.execute(
                 "INSERT INTO liste(nom_liste, id_joueur)"
-                " VALUES (%(nom_liste)s, id_joueur) RETURNING id_liste, mot;"
-                , {"nom_liste": nom}
+                " VALUES (%(nom_liste)s, %(id_joueur)s) RETURNING id_liste, id_joueur;"
+                , {"nom_liste": nom_liste, "id_joueur" : id_joueur}
             )
 
             res = cursor.fetchone()
             cursor.execute("commit;")
+
+        return res
+    
+    def ajouter_mot(self, id_liste, id_mot):
+
+        '''Méthode ajouter_mot
+        
+        Permet d'ajouter un mot à une liste
+        
+        Parameters
+        ----------
+        id_mot : int
+            Identifiant du mot
+        
+        id_liste : int
+            Identifiant de la liste de mots 
+        
+        Returns
+        --------
+        liste : list
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "INSERT INTO passage_liste_mot(id_liste, id_mot)"
+                " VALUES (%(id_liste)s, %(id_mot)s) ;"
+                , {"id_liste": id_liste, "id_mot" : id_mot}
+            )
+            cursor.execute("commit;")
+
+    
+
+    def get_mots_by_id_liste(self, id):
+
+        '''Méthode get_mots_by_id_liste
+        
+        Permet de retourner les mots associés à une liste
+        
+        Parameters
+        ----------
+        id : int
+            Identifiant de la liste
+        
+        Returns
+        --------
+        liste : list
+            Mots de la liste
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT mot FROM liste JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
+                                     " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                                     " WHERE liste.id_liste= %(id)s"
+                , {"id": id}
+            )
+
+            res = cursor.fetchall()
+
+        return res
+
+    def supprimer_mot(self, id_mot, id_liste):
+
+        '''Méthode supprimer_mot
+        
+        Permet de supprimer un mot d'une liste (supprime le lien entre le mot et la liste dans la table passage_liste_mot)
+        
+        Parameters
+        ----------
+        id_mot : int
+            Identifiant du mot à supprimer
+        
+        id_liste : int
+            Identifiant de la liste à laquelle le mot appartient
+        
+        
+        Returns
+        --------
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "DELETE FROM passage_liste_mot"
+                " WHERE id_mot = (%(id_mot)s) AND id_liste = (%(id_liste)s) ;"
+                , {"id_mot": id_mot, "id_liste" : id_liste}
+            )
+            cursor.execute("commit;")
+
+
+    def supprimer(self, id_liste):
+
+        '''Méthode supprimer 
+        
+        Permet de supprimer une liste (supprime tous les liens dans la table de passage passage_liste_mot puis supprime la liste de la table liste)
+        
+        Parameters
+        ----------
+
+        id_liste : int
+            Identifiant de la liste à supprimer
+        
+        
+        Returns
+        --------
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "DELETE FROM passage_liste_mot"
+                " WHERE id_liste = (%(id_liste)s) ;"
+                "DELETE FROM liste"
+                " WHERE id_liste = (%(id_liste)s) ;"
+                , {"id_liste" : id_liste})
+            
+            cursor.execute("commit;")
+
+
+    def get_mots_by_nom_liste(self, nom_liste):
+
+        '''Méthode get_mots_by_nom_liste
+        
+        Permet de retourner les mots associés à une liste
+        
+        Parameters
+        ----------
+        nom_liste : str
+            Nom de la liste
+        
+        Returns
+        --------
+        liste : dict
+            Mots de la liste
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT mot FROM liste JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
+                                     " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                                     " WHERE liste.nom_liste= %(nom_liste)s"
+                , {"nom_liste": nom_liste}
+            )
+
+            res = cursor.fetchall()
 
         return res
