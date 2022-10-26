@@ -16,7 +16,8 @@ class Joueur :
         -------
         >>> joueur1=Joueur(1,"oussama",[1])
         >>> joueur1.id_joueur
-        1   
+        1
+   
         """
         self.id_joueur = id_joueur
         self.nom_joueur = nom_joueur
@@ -26,7 +27,7 @@ class Joueur :
         """_summary_
 
         Returns:
-            str: c'est pour retourner l'identifiant du joueur et le nom du joueur
+            str: l'identifiant du joueur et le nom du joueur
         EXAMPLE
         -------
         >>> joueur1=Joueur(1,"oussama",[1])
