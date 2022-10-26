@@ -8,7 +8,7 @@ class AccueilKataView (AbstractView) :
 
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour {Session().pseudo}'
+            message=f'Bonjour '
             , choices=[
                 Choice('Se connecter')
                 ,Choice('Créer un compte')
@@ -29,5 +29,8 @@ class AccueilKataView (AbstractView) :
         elif reponse == "Consulter les 10 meilleurs scores" :
             from vues.toptenview import ViewTopTen
             return ViewTopTen()
+
+
+print(AccueilKataView())
 
 
