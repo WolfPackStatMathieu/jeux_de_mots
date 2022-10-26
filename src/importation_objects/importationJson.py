@@ -16,6 +16,12 @@ class ImportationJson(AbstractImportationListe):
     """
     def __init__(self,):
         """constructeur de ImportationJson
+
+        Examples
+        --------
+        >>> import json
+        >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+        >>> ma_liste = ImportationJson()
         """
         super.__init__(self)
 
@@ -40,7 +46,6 @@ class ImportationJson(AbstractImportationListe):
         --------
         >>> import json
         >>> from src.importation_objects.abstract_importation_liste import AbstractImportationListe
-        >>>
         """
 
 if __name__ == '__main__':
