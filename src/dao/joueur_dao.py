@@ -2,7 +2,6 @@ from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class JoueurDAO():
-    ''
 
     def get_pseudo_by_id(self, id):
 
@@ -38,6 +37,40 @@ class JoueurDAO():
 
         return pseudo
 
+    def pseudo_existe(self, pseudo):
+
+        '''Méthode get_pseudo_by_id
+        
+        Permet de retourner le pseudo correspondant à un id_joueur
+        
+        Parameters
+        ----------
+        id : int
+            Identifiant du joueur
+        
+        Returns
+        --------
+        pseudo : 
+            Pseudo du joueur, None si le joueur n'est pas trouvé
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT id_joueur FROM joueur WHERE pseudo = %(pseudo)s"
+                , {"pseudo": pseudo}
+            )
+
+            res = cursor.fetchone()
+
+        if res :
+            return True
+        else : 
+            return False
+
+
+
     def create(self, pseudo):
 
         '''Méthode create
@@ -58,14 +91,31 @@ class JoueurDAO():
             
 
         '''
+        if JoueurDAO().pseudo_existe(pseudo) == True :
+            print('Ce pseudo est déjà utilisé.')
+        
+        if JoueurDAO().pseudo_existe(pseudo) == False :
+
+            connection = DBConnection().connection
+            with connection.cursor() as cursor :
+                cursor.execute(
+                    "INSERT INTO joueur(pseudo)"
+                    " VALUES (%(pseudo)s) RETURNING id_joueur, pseudo;"
+                    ,{"pseudo": pseudo})
+
+                res = cursor.fetchone()
+                cursor.execute()
+            return res
+
+   
+    def get_all_joueurs(self):
+
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "INSERT INTO joueur(pseudo)"
-                " VALUES (%(pseudo)s) RETURNING id_joueur"
-                ,{"pseudo": pseudo}
-            )
-            res = cursor.fetchone()
+                "SELECT * FROM joueur " )
 
-        print(res)
+            res = cursor.fetchall()
+
+        return res

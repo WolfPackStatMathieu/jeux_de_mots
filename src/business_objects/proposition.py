@@ -1,0 +1,77 @@
+class Proposition :
+    '''
+    '''
+    def __init__(self, mot):
+        self.mot=mot
+        self.transforme_proposition()
+
+    #def est_autorise(self):
+        #appel à l'API de Wikipédia
+
+    def majuscule(self):
+        '''Remplace les minuscules en majuscules d'une chaîne de caractères
+        
+        parameters : str 
+
+        return : str 
+        La chaîne en majuscule
+        '''
+        s=''
+        if self.mot==None:
+            return(None)
+        else:
+            for caractere in self.mot:
+                s+=caractere.upper()
+            return(s)
+
+    
+    def supprime_accent(self):
+        '''Supprime les accents d'une chaîne de caracteres
+        
+        parameters : str 
+
+        return : str 
+        La chaîne sans les accents
+        '''
+        s=""
+        if self.mot==None:
+            return(None)
+        else : 
+            copie=''
+            for caractere in self.mot:
+                copie+=caractere.lower()
+            for caractere in copie:
+                if caractere=='é':
+                    s+='e'
+                elif caractere=='è':
+                    s+='e'
+                elif caractere=='à':
+                    s+='a'
+                elif caractere=='ù':
+                    s+='u'
+                elif caractere=='î':
+                    s+='i'
+                elif caractere=='ï':
+                    s+='i'
+                elif caractere=='ç':
+                    s+='c'
+                elif caractere=='â':
+                    s+='a'
+                elif caractere=='ô':
+                    s+='o'
+                elif caractere=='ê':
+                    s+='e'
+                else:
+                    s+=caractere
+            return(s)
+
+    def transforme_proposition(self):
+        self.mot=self.supprime_accent()
+        self.mot=self.majuscule()
+
+    def __str__(self):
+        return(self.mot)
+
+
+proposition=Proposition("école")
+print(proposition)

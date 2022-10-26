@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 debug.log
+=======
+src/dao/__pycache__
+src/utils/__pycache__
+>>>>>>> 363ece5efac30a915c1068df001569bf30650fcb
