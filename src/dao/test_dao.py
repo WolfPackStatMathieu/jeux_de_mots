@@ -3,7 +3,30 @@ from src.dao.db_connection import DBConnection
 from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.mot_dao import MotDAO
+from src.dao.proposition_dao import PropositionDAO
+from src.dao.partie_dao import PartieDAO
+from src.dao.score_dao import ScoreDAO
 
+
+print(ScoreDAO().get_top_10())
+#ScoreDAO().supprimer(2)
+#ScoreDAO().update(5, 198)
+
+#PartieDAO().supprimer(3)
+
+#PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
+
+#print(JoueurDAO().get_id_by_pseudo('Linh-Da'))
+#PropositionDAO().supprimer_all(1)
+#PropositionDAO().creer(3, 'ahehehe')
+#PropositionDAO().creer(3, 'ahdhehe')
+#PropositionDAO().creer(3, 'msdfpsod')
+
+#ListeDAO().creer(5, 'nouvelle liste')
+#print(ListeDAO().get_mots_by_nom_liste('nouvelle liste'))
+
+#ListeDAO().ajouter(3, "ma liste")
+#print(ListeDAO().get_liste(1))
 
 
 #print(JoueurDAO().get_pseudo_by_id(4))
@@ -26,4 +49,4 @@ from src.dao.mot_dao import MotDAO
 #print(MotDAO().get_mots_by_id_liste(1))
 #print(MotDAO().get_mots_by_id_liste(2))
 
-#MotDAO().ajouter('voiture')
+
