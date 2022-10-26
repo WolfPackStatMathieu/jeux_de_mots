@@ -187,3 +187,35 @@ class ListeDAO():
                 , {"id_liste" : id_liste})
             
             cursor.execute("commit;")
+
+
+    def get_mots_by_nom_liste(self, nom_liste):
+
+        '''Méthode get_mots_by_nom_liste
+        
+        Permet de retourner les mots associés à une liste
+        
+        Parameters
+        ----------
+        nom_liste : str
+            Nom de la liste
+        
+        Returns
+        --------
+        liste : list
+            Mots de la liste
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT mot FROM liste JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
+                                     " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                                     " WHERE liste.nom_liste= %(nom_liste)s"
+                , {"nom_liste": nom_liste}
+            )
+
+            res = cursor.fetchall()
+
+        return res

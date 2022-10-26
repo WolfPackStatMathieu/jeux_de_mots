@@ -7,7 +7,7 @@ from src.dao.mot_dao import MotDAO
 #ListeDAO().supprimer(3)
 
 #ListeDAO().creer(5, 'nouvelle liste')
-print(ListeDAO().get_mots_by_id_liste(4))
+print(ListeDAO().get_mots_by_nom_liste('nouvelle liste'))
 
 #ListeDAO().ajouter(3, "ma liste")
 #print(ListeDAO().get_liste(1))
