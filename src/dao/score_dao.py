@@ -3,9 +3,11 @@ from src.dao.db_connection import DBConnection
 
 class ScoreDAO():
 
+#à rajouter dans la fonction : on ajoute le score dans tous les cas si le joueur a moins de 10 scores 
+#à rajouter dans la fonction : supprimer le dernier si après ajout le joueur a plus que 10 scores
     def ajouter(self, id_joueur, score):
 
-        if score > ScoreDAO().get_meilleur_score(id_joueur):
+        if score > ScoreDAO().get_dernier_meilleur_score(id_joueur):
             print('OK')
 
             connection = DBConnection().connection
@@ -81,4 +83,3 @@ class ScoreDAO():
 
             
 
-    

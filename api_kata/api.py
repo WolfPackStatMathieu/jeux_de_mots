@@ -5,12 +5,14 @@ from src.dao.liste_dao import ListeDAO
 from router import joueur_get
 from router import liste_get
 from router import mot_get
+from router import score_get
 from router import partie_get, partie_post
 
 kata=FastAPI()
 kata.include_router(joueur_get.router)
 kata.include_router(liste_get.router)
 kata.include_router(mot_get.router)
+kata.include_router(score_get.router)
 # kata.include_router(partie_get.router)
 # kata.include_router(partie_post.router)
 
