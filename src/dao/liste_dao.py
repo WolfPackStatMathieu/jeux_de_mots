@@ -257,3 +257,9 @@ class ListeDAO():
             for row in res:
                 liste.append(row["nom_liste"])
         return liste
+<<<<<<< HEAD
+=======
+
+# liste_dao=ListeDAO()
+# liste_dao.ajouter_mot(5,6)
+>>>>>>> 270d6c632d218b17c3120ea3b9a233f5d0406009
