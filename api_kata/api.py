@@ -4,8 +4,12 @@ from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from router import joueur_get
 from router import liste_get
+from router import partie_get, partie_post
+
 kata=FastAPI()
 kata.include_router(joueur_get.router)
+kata.include_router(partie_get.router)
+kata.include_router(partie_post.router)
 
 
 @kata.get("/")
