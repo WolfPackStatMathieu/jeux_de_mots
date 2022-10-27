@@ -7,12 +7,8 @@ from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
-b = ListeDAO().get_mots_by_id_liste(4)
-print(b)
-print(type(b))
-a = ListeDAO().get_liste_by_id_joueur(5)
-print(a)
-#print(MotDAO().find('dkkdkd'))
+
+print(ListeDAO().get_liste_by_id_joueur(5))
 #ScoreDAO().supprimer(2)
 #ScoreDAO().update(5, 198)
 
