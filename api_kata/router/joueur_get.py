@@ -41,4 +41,4 @@ async def get_liste_by_id_joueur(id_joueur):
 @router.post("/{id_joueur}/liste/{name}")
 async def create_by_name(id_joueur, name):
     liste_dao=ListeDAO()
-    liste_dao.creer(id_joueur, name)
+    return(liste_dao.creer(id_joueur, name))
