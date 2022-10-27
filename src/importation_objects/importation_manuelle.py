@@ -16,12 +16,12 @@ class ImportationManuelle(AbstractImportationListe):
         Parameters
         ----------
         nouveau_mot : str
-            le mot à
+            le mot à ajouter
 
         Returns
         -------
-        _type_
-            _description_
+        str
+            le mot ajouté par l'utilisateur
         """
         return mot
 
