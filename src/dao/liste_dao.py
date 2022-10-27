@@ -259,4 +259,4 @@ class ListeDAO():
         return liste
 
 # liste_dao=ListeDAO()
-# liste_dao.ajouter_mot(5,6)
+# liste_dao.supprimer_mot(1,5)
