@@ -33,7 +33,6 @@ class MotDAO():
         --------
         mot : str
             Le mot créé
-
         '''
 
         connection = DBConnection().connection
@@ -64,7 +63,6 @@ class MotDAO():
         --------
          : bool
             True si le mot existe
-
         '''
 
         connection = DBConnection().connection
