@@ -65,10 +65,8 @@ class ListeDAO():
                 , {"nom_liste": nom_liste, "id_joueur" : id_joueur}
             )
 
-            res = cursor.fetchone()
             cursor.execute("commit;")
 
-        return res
     
     def ajouter_mot(self, id_liste, id_mot):
 
