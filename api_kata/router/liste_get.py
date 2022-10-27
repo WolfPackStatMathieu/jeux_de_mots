@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from fastapi import FastAPI, status, Response
-from src.dao.joueur_dao import JoueurDAO
+from fastapi import *
+from src.dao.liste_dao import ListeDAO
 
 router = APIRouter(
     prefix='/liste',
@@ -14,7 +14,7 @@ async def get_mots_by_id_liste( id_liste):
     return liste_dao.get_mots_by_id_liste(id_liste)
 
 #Ajouter un mot dans une liste
-@router.create("/{id_liste}/mot/{id_mot}")
+@router.post("/{id_liste}/mot/{id_mot}")
 async def ajouter_mot(id_liste, id_mot):
     liste_dao=ListeDAO()
     liste_dao.ajouter_mot(id_liste, id_mot)

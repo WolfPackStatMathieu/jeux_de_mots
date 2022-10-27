@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import FastAPI, status, Response
+from fastapi import *
 from src.dao.joueur_dao import JoueurDAO
 
 router = APIRouter(
@@ -31,7 +31,7 @@ async def get_liste_by_id_joueur(id_joueur):
     return liste_dao.get_liste_by_id_joueur(id_joueur)
 
 #Créer une liste associée à un joueur
-@router.create("/{id_joueur}/liste/{name}")
+@router.post("/{id_joueur}/liste/{name}")
 async def create_by_name(id_joueur, name):
     liste_dao=ListeDAO()
     liste_dao.supprimer(id_joueur, name)
