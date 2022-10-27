@@ -65,10 +65,8 @@ class ListeDAO():
                 , {"nom_liste": nom_liste, "id_joueur" : id_joueur}
             )
 
-            res = cursor.fetchone()
             cursor.execute("commit;")
 
-        return res
     
     def ajouter_mot(self, id_liste, id_mot):
 
@@ -243,5 +241,20 @@ class ListeDAO():
             liste=[]
             for row in res:
                 liste.append(row["id_liste"])
+        return liste
+    
+    def get_nom_by_id(self, id_liste):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT id_liste FROM liste WHERE nom_liste = %(id_liste)s"
+                , {"id_liste": id_liste}
+            )
+
+            res = cursor.fetchall()
+            liste=[]
+            for row in res:
+                liste.append(row["nom_liste"])
         return liste
 

@@ -8,10 +8,9 @@ from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
 
-print(ListeDAO().get_liste_by_id_joueur(5))
-#ScoreDAO().supprimer(2)
-#ScoreDAO().update(5, 198)
 
+a=PartieDAO().get_partie_by_id(1)
+print(a)
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
