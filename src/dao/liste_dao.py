@@ -24,7 +24,7 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT * FROM liste WHERE id_joueur = %(id)s"
+                "SELECT nom_liste FROM liste WHERE id_joueur = %(id)s"
                 , {"id": id}
             )
 
@@ -126,8 +126,11 @@ class ListeDAO():
             )
 
             res = cursor.fetchall()
+            liste = []
+            for row in res:
+                liste.append(row["mot"])
 
-        return res
+        return liste
 
     def supprimer_mot(self, id_mot, id_liste):
 
