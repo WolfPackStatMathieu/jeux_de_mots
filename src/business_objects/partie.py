@@ -116,8 +116,16 @@ class Partie :
 
 
 
-difficultes=Difficultes(6,8,True,8)
-partie=Partie(1, [], False, None, difficultes)
+# difficultes=Difficultes(6,8,True,10)
+# partie=Partie(1, [], False, None, difficultes)
+# print(partie.mot_objectif)
+# proposition=Proposition("ABCDEFGHIJ")
+# print(partie.verifie_proposition(proposition))
+
+
+difficultes=Difficultes(6,8,True,None)
+partie=Partie(1, [], True, 5, difficultes)
 print(partie.mot_objectif)
-proposition=Proposition("ABCDEFGH")
+print("Faites une proposition : ")
+proposition=Proposition(input())
 print(partie.verifie_proposition(proposition))
