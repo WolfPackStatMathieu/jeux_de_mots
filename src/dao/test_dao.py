@@ -7,5 +7,6 @@ from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
+
 #print(ScoreDAO().get_top_10_perso(5))
 print(ScoreDAO().get_meilleur_score(5))
