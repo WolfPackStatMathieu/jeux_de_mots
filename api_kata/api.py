@@ -8,6 +8,8 @@ from router import partie_get, partie_post
 
 kata=FastAPI()
 kata.include_router(joueur_get.router)
+kata.include_router(partie_get.router)
+kata.include_router(partie_post.router)
 
 
 @kata.get("/")
