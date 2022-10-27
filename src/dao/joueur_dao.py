@@ -81,7 +81,7 @@ class JoueurDAO():
 
         '''
         if JoueurDAO().pseudo_existe(pseudo) == True :
-            print('Ce pseudo est déjà utilisé.')
+            return('Ce pseudo est déjà utilisé.')
         
         if JoueurDAO().pseudo_existe(pseudo) == False :
 

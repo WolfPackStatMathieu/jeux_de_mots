@@ -9,9 +9,9 @@ router = APIRouter(
 
 #Obtenir les mots d'une liste
 @router.get("/{id_liste}")
-async def get_mots_by_id_liste( id_liste):
+async def get_mots_by_id_liste(id_liste):
     liste_dao=ListeDAO()
-    return liste_dao.get_mots_by_id_liste(id_liste)
+    liste_dao.get_mots_by_id_liste(id_liste)
 
 #Ajouter un mot dans une liste
 @router.post("/{id_liste}/mot/{id_mot}")
@@ -29,4 +29,4 @@ async def supprimer_mot(id_liste, id_mot):
 @router.delete("/{id_liste}")
 async def delete_by_id_liste( id_liste):
     liste_dao=ListeDAO()
-    return liste_dao.creer(id_liste)
+    return liste_dao.supprimer(id_liste)
