@@ -13,11 +13,6 @@ class AbstractImportationListe(ABC):
         """
         pass
 
-    @abstractmethod
-    def __str__(self):
-        """pour visualiser la lister
-        """
-        pass
 
     @abstractmethod
     def creer(self):

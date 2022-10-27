@@ -1,7 +1,7 @@
 import requests as requests
-# from src.business_objects.abstract_generer_mot import AbstractGenererMot
+from src.business_objects.abstract_generer_mot import AbstractGenererMot
 
-class GenererMotApi():
+class GenererMotApi(AbstractGenererMot):
     def __init__(self, nb_lettres):
         self.nb_lettres=nb_lettres
 

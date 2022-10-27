@@ -1,6 +1,6 @@
-# from src.business_objects.abstract_generer_mot import AbstractGenererMot
+from src.business_objects.abstract_generer_mot import AbstractGenererMot
 
-class GenererMotListePerso():
+class GenererMotListePerso(AbstractGenererMot):
     def __init__(self, id_liste):
         #on récupère la liste perso grâce à la DAO 
 

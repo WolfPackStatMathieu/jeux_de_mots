@@ -37,21 +37,10 @@ class JoueurDAO():
 
         return pseudo
 
+# sans doute à supprimer car fait la même chose que get_id_by_pseudo (si None => pseudo n'existe pas)
     def pseudo_existe(self, pseudo):
 
-        '''Méthode get_pseudo_by_id
-        
-        Permet de retourner le pseudo correspondant à un id_joueur
-        
-        Parameters
-        ----------
-        id : int
-            Identifiant du joueur
-        
-        Returns
-        --------
-        pseudo : 
-            Pseudo du joueur, None si le joueur n'est pas trouvé
+        '''Méthode vérifiant si un pseudo existe
 
         '''
 
@@ -119,3 +108,37 @@ class JoueurDAO():
             res = cursor.fetchall()
 
         return res
+
+    def get_id_by_pseudo(self, pseudo):
+
+        '''Méthode get_id_by_pseudo
+        
+        Permet de retourner le id_joueur correspondant à un pseudo
+        
+        Parameters
+        ----------
+        pseudo : str
+            Pseudo du joueur
+        
+        Returns
+        --------
+        id_joueur : int
+            id_joueur du joueur, None si le pseudo n'est pas trouvé
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT id_joueur FROM joueur WHERE pseudo = %(pseudo)s"
+                , {"pseudo": pseudo}
+            )
+
+            res = cursor.fetchone()
+
+        id_joueur = None 
+
+        if res :
+            id_joueur = res
+
+        return id_joueur
