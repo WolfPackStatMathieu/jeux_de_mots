@@ -2,22 +2,23 @@ from src.utils.singleton import Singleton
 
 
 class Session(metaclass=Singleton):
-    def __init__(self, pseudo, id_partie = None):
+    def __init__(self, pseudo, partie = None, liste = None):
         """
         Définition des variables que l'on stocke en session
 
         Attributes
         ----------
-        id_joueur : int
-        Identifiant du joueur connecté
 
         pseudo : str
         Pseudo du joueur connecté
 
-        id_partie : int
-        Identifiant de la partie en cours du joueur connecté
-        Si le joueur n'a pas de partie en cours, id_partie vaut None
+        partie : Partie
+        Partie en cours du joueur connecté
+        Si le joueur n'a pas de partie en cours, partie vaut None
+
+        liste : str
+        Nom de la liste en cours d'utilisation
         """
         self.pseudo = pseudo
-        
-        self.id_partie = id_partie
+        self.liste = liste
+        self.partie = partie
