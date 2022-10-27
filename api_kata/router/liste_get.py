@@ -23,7 +23,7 @@ async def ajouter_mot(id_liste, id_mot):
 @router.delete("/{id_liste}/mot/{id_mot}")
 async def supprimer_mot(id_liste, id_mot):
     liste_dao=ListeDAO()
-    return(liste_dao.supprimer_mot(id_mot, id_list))
+    return(liste_dao.supprimer_mot(id_mot, id_liste))
 
 #Supprimer une liste
 @router.delete("/{id_liste}")
