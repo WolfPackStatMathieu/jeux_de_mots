@@ -245,3 +245,5 @@ class ListeDAO():
                 liste.append(row["id_liste"])
         return liste
 
+liste_dao=ListeDAO()
+print(liste_dao.get_mots_by_id_liste(5))
