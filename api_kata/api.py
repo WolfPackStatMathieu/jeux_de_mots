@@ -7,6 +7,8 @@ from router import joueur_get
 kata=FastAPI()
 kata.include_router(joueur_get.router)
 
+
+
 @kata.get("/",
           tags=['accueil'],
           summary='accueil de l api kata',
