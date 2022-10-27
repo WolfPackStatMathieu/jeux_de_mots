@@ -1,3 +1,7 @@
 debug.log
 src/dao/__pycache__
 src/utils/__pycache__
+src/business_objects/__pycache__
+src/importation_objects/__pycache__
+src/view/__pycache__
+utils/__pycache__
