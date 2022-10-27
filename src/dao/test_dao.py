@@ -7,8 +7,10 @@ from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
+#ScoreDAO().ajouter(5, 20)
+#print(len(ScoreDAO().get_top_10_perso(5)))
+print(ScoreDAO().get_all_perso(5))
 
-print(PropositionDAO().get_proposition_by_partie(1))
 
 #PartieDAO().supprimer(3)
 

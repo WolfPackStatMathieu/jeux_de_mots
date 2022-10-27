@@ -7,22 +7,27 @@ class ScoreDAO():
 
         if score > ScoreDAO().get_dernier_meilleur_score(id_joueur):
 
-            id_score_a_supprimer = ScoreDAO().get_dernier_meilleur_score_id(id_joueur)
+            if len(ScoreDAO().get_top_10_perso(id_joueur)) == 10 :
 
-            connection = DBConnection().connection
-            with connection.cursor() as cursor :
-                cursor.execute(
-                    "INSERT INTO score(id_joueur, score)"
-                    " VALUES (%(id_joueur)s, %(score)s ) ;", {"id_joueur": id_joueur, "score": score})
-                cursor.execute("commit;")
-
-            
-            #print(id_score_a_supprimer)
-            if 
-            ScoreDAO().supprimer(id_score_a_supprimer)
-        
+                id_score_a_supprimer = ScoreDAO().get_dernier_meilleur_score_id(id_joueur)
+                ScoreDAO().supprimer(id_score_a_supprimer)
+                connection = DBConnection().connection
+                with connection.cursor() as cursor :
+                    cursor.execute(
+                        "INSERT INTO score(id_joueur, score)"
+                        " VALUES (%(id_joueur)s, %(score)s ) ;", {"id_joueur": id_joueur, "score": score})
+                    cursor.execute("commit;")
+            else :
+                connection = DBConnection().connection
+                with connection.cursor() as cursor :
+                    cursor.execute(
+                        "INSERT INTO score(id_joueur, score)"
+                        " VALUES (%(id_joueur)s, %(score)s ) ;", {"id_joueur": id_joueur, "score": score})
+                    cursor.execute("commit;")
+                        
         else :
             pass
+       
 
  
     def get_dernier_meilleur_score(self, id_joueur):
@@ -98,6 +103,22 @@ class ScoreDAO():
             for row in res:
                 liste.append(row["score"])
         return liste
-            
+    
+    def get_all_perso(self, id_joueur):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT score"
+                " FROM score"
+                " WHERE id_joueur = (%(id_joueur)s)"
+                " ORDER BY score DESC ;"
+                ,{"id_joueur": id_joueur})
+                
+            res=cursor.fetchall()
+            liste=[]
+            for row in res:
+                liste.append(row["score"])
+        return liste
 
     
