@@ -26,17 +26,19 @@ class CreerListeManuelleView(AbstractView):
         premier_mot = ASK_PREMIER_MOT.execute()
 
         from src.dao.joueur_dao import JoueurDAO
-        id_joueur = JoueurDAO.get_id_by_pseudo(self, Session().pseudo)
+        joueurdao = JoueurDAO()
+        id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
 
         from src.dao.liste_dao import ListeDAO
-        ListeDAO.creer(self, id_joueur, nom_liste)
+        listedao = ListeDAO()
+        listedao.creer(id_joueur, nom_liste)
 
         from src.dao.mot_dao import MotDAO
-        if not MotDAO.find() :
-            MotDAO.creer(self, mot)
-        id_mot = MotDAO.id()
-        id_liste = ListeDAO.id(self, Session().liste)
-        ListeDAO.ajouter_mot(self, id_liste, id_mot)
+        if not motdao.find(mot) :
+            motdao.creer(mot)
+        id_mot = motdao.get_id_by_mot(mot)
+        id_liste = listedao.id(Session().liste)
+        listedao.ajouter_mot(id_liste, id_mot)
 
         from src.view.accueilpersoview import AccueilPersoView
         return AccueilPersoView()
