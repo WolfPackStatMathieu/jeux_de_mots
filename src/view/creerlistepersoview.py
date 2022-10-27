@@ -12,7 +12,7 @@ class CreerListePersoView (AbstractView) :
             message=f'Bonjour {Session().pseudo}'
             , choices=[
                 Choice('Créer une liste manuellement')
-                ,Choice('Importer un liste')]
+                ,Choice('Importer une liste')]
         )
     
     def display_info(self):

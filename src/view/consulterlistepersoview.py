@@ -6,29 +6,28 @@ from src.view.session import Session
 
 
 class ConsulterListePersoView (AbstractView) :
-
-    def __init__(self):
-        self.__questions = inquirer.select(
-            message=f'Bonjour {Session().pseudo}'
-            , choices=[
-                Choice('Voir ma liste personnelle')
-                ,Choice('Ajouter un mot à ma liste')
-                ,Choice('Supprimer un mot de ma liste')]
-        )
     
+    def __init__(self):
+        from src.dao.joueur_dao import JoueurDAO
+        id_joueur = JoueurDAO.get_id_by_pseudo(self, Session().pseudo)
+        from src.dao.liste_dao import ListeDAO
+        listes = ListeDAO.get_liste_by_id_joueur(self, id)
+
+        self.__questions = inquirer.select(
+            message=f'Quelle liste veux tu sélectionner?'
+            , choices = [Choice(liste) for liste in listes]
+        )
+
     def display_info(self):
         pass
 
     def make_choice(self):
-        reponse = self.__questions.execute()
-        if reponse == 'Nothing':
-            pass
-        elif reponse== 'Voir ma liste personnelle':
-            from src.view.listepersoview import ListePersoView
-            return ListePersoView()
-        elif reponse== 'Ajouter un mot à ma liste':
-            from src.view.ajoutermotview import AjouterMotView
-            return AjouterMotView()
-        elif reponse== 'Supprimer un mot de ma liste':
-            from src.view.supprimermotview import SupprimerMotView
-            return SupprimerMotView()
+        nom_liste = self.__questions.execute()
+        session.liste = nom_liste
+        from src.dao.liste_dao import ListeDAO
+        liste_mots = ListeDAO.get_mots_by_nom_liste(self, nom_liste)
+        for mot in liste_mots :
+            print(mot)
+        from src.view.modificationlisteview import ModificationListeView
+        return ModificationListeView()
+        
