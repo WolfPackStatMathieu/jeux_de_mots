@@ -94,4 +94,38 @@ class MotDAO():
             )
             cursor.execute("commit;")
 
+    def find(self, mot):
+
+        '''Méthode find
+        
+        Permet de chercher un mot 
+        
+        Parameters
+        ----------
+        mot : str
+            Mot à chercher
+        
+        Returns
+        --------
+         : bool
+            True si le mot existe
+
+        '''
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT id_mot"
+                " FROM mots WHERE mot=(%(mot)s) ;"
+                , {"mot": mot}
+            )
+
+            res = cursor.fetchone()
+            
+            trouve = None
+            if res :
+                trouve = True
+            else :
+                trouve = False
+        return trouve
     
