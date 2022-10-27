@@ -2,6 +2,7 @@
 """
 
 from src.importation_objects.abstract_importation_liste import AbstractImportationListe
+from src.business_objects.proposition import Proposition
 
 class ImportationManuelle(AbstractImportationListe):
     """permet d'importer une liste manuellement
@@ -10,6 +11,7 @@ class ImportationManuelle(AbstractImportationListe):
         """_summary_
         """
         pass
+
     def ajouter_mot(self, nouveau_mot):
         """permet d'ajouter un mot.
 
@@ -23,5 +25,9 @@ class ImportationManuelle(AbstractImportationListe):
         str
             le mot ajouté par l'utilisateur
         """
-        return mot
+        #on réutilise la classe Proposition pour gérer les accents et minuscules
+        mon_mot = Proposition(nouveau_mot)
+
+        return mon_mot.mot
+
 
