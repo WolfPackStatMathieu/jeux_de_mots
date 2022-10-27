@@ -7,7 +7,6 @@ from src.view.session import Session
 class JouerView (AbstractView) :
     def __init__(self):
         if 1 == 1 or partie_en_cours :
-
             self.__questions = inquirer.select(
                 message=f'Bonjour {Session().pseudo}, que souhaites-tu faire?'
                 , choices=[
@@ -24,7 +23,6 @@ class JouerView (AbstractView) :
 
     def make_choice(self):
         reponse = self.__questions.execute()
-<<<<<<< HEAD
         if reponse == 'Nouvelle partie':
             from src.view.difficulteview import DifficulteView
             return DifficulteView()
