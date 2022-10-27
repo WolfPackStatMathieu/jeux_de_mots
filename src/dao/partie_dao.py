@@ -65,4 +65,19 @@ class PartieDAO():
                 , {"id_partie": id_partie}
             )
             cursor.execute("commit;")
+
+    def get_partie_by_id(self, id_partie):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT * FROM partie WHERE id_partie = %(id_partie)s"
+                , {"id_partie": id_partie}
+            )
+
+            res = cursor.fetchall()
+            #liste=[]
+            #for row in res:
+                #liste.append(row["nom_liste"])
+        return res
     
