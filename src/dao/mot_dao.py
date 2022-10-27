@@ -3,6 +3,23 @@ from src.dao.db_connection import DBConnection
 
 class MotDAO():
 
+    def get_id_by_mot(self, mot):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT id_mot FROM mots WHERE mot = %(mot)s"
+                , {"mot": mot}
+            )
+
+            res = cursor.fetchall()
+            liste = []
+            for row in res :
+                liste.append(row[id_mot])
+
+        return liste
+
+ 
     def creer(self, mot):
 
         '''Méthode créer
@@ -34,34 +51,6 @@ class MotDAO():
 
         return res
 
-    def supprimer(self, id_mot, id_liste):
-
-        '''Méthode supprimer 
-        
-        Permet de supprimer un mot d'une liste (supprime le lien entre le mot et la liste dans la table passage_liste_mot)
-        
-        Parameters
-        ----------
-        id_mot : int
-            Identifiant du mot à supprimer
-        
-        id_liste : int
-            Identifiant de la liste à laquelle le mot appartient
-        
-        
-        Returns
-        --------
-
-        '''
-
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "DELETE FROM passage_liste_mot"
-                " WHERE id_mot = (%(id_mot)s) AND id_liste = (%(id_liste)s) ;"
-                , {"id_mot": id_mot, "id_liste" : id_liste}
-            )
-            cursor.execute("commit;")
 
     def find(self, mot):
 
