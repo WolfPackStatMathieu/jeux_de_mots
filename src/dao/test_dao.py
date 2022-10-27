@@ -9,9 +9,8 @@ from src.dao.score_dao import ScoreDAO
 
 
 
-a=ScoreDAO().get_meilleur_score(5)
+a=PartieDAO().get_partie_by_id(1)
 print(a)
-print(type(a))
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
