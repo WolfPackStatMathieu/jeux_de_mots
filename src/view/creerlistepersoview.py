@@ -12,7 +12,8 @@ class CreerListePersoView (AbstractView) :
             message=f'Bonjour {Session().pseudo}'
             , choices=[
                 Choice('Créer une liste manuellement')
-                ,Choice('Importer une liste')]
+                ,Choice('Importer une liste CSV')
+                ,Choice('Importer une liste JSON')]
         )
     
     def display_info(self):
@@ -25,6 +26,9 @@ class CreerListePersoView (AbstractView) :
         elif reponse== 'Créer une liste manuellement':
             from src.view.creerlistemanuelleview import CreerListeManuelleView
             return CreerListeManuelleView()
-        elif reponse== 'Importer une liste':
-            from src.view.creerlisteimporteeview import CreerListeImporteeView
-            return CreerListeImporteeView()
+        elif reponse== 'Importer une liste CSV':
+            from src.view.listeimporteecsvview import ListeImporteeCSVView
+            return ListeImporteeCSVView()
+        elif reponse== 'Importer une liste JSON':
+            from src.view.listeimporteejsonview import ListeImporteeJSONView
+            return ListeImporteeJSONView()

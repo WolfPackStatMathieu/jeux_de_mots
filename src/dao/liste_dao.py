@@ -257,17 +257,6 @@ class ListeDAO():
             for row in res:
                 liste.append(row["nom_liste"])
         return liste
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
 liste_dao=ListeDAO()
-res = liste_dao.get_mots_by_id_liste(5)
-print(res)
-print(type(res))
-print(type(res[0]))
-=======
-# liste_dao=ListeDAO()
-# liste_dao.ajouter_mot(5,6)
->>>>>>> 270d6c632d218b17c3120ea3b9a233f5d0406009
->>>>>>> b40226daf4107b0f34ad7bfbd4e08b3b0653c38c
+print(liste_dao.get_mots_by_id_liste(5))
