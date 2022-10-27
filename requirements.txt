@@ -2,5 +2,5 @@ requests
 fastapi
 pydantic
 uvicorn
-PyInquirer
+InquirerPy
 psycopg2-binary
