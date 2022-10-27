@@ -2,7 +2,10 @@ from fastapi import FastAPI, status, Response
 import uvicorn
 from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
+from router import joueur_get
+
 kata=FastAPI()
+kata.include_router(joueur_get.router)
 
 @kata.get("/",
           tags=['accueil'],
