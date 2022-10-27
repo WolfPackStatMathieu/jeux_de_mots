@@ -32,6 +32,6 @@ async def get_liste_by_id_joueur(id_joueur):
 
 #Créer une liste associée à un joueur
 @router.create("/{id_joueur}/liste/{name}")
-async def create_by_name(name):
+async def create_by_name(id_joueur, name):
     liste_dao=ListeDAO()
     liste_dao.supprimer(id_joueur, name)
