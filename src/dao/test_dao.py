@@ -8,9 +8,8 @@ from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
 
+print(PropositionDAO().get_proposition_by_partie(1))
 
-a=PartieDAO().get_partie_by_id(1)
-print(a)
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)

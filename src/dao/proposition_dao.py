@@ -2,6 +2,21 @@ from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class PropositionDAO():
+    def get_by_id_partie(self,id_partie):
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT proposition FROM proposition"
+                " WHERE id_partie = (%(id_partie)s) ;"
+                , {"id_partie": id_partie}
+            )
+            res = cursor.fetchall()
+            liste = []
+            for row in res:
+                liste.append(row["proposition"])
+
+        return liste
+
     def creer(self, id_partie, proposition):
 
         '''Méthode créer
