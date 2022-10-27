@@ -6,3 +6,9 @@ src/importation_objects/__pycache__
 src/view/__pycache__
 utils/__pycache__
 api_kata/router/__pycache__
+src/utils/__pycache__/__init__.cpython-39.pyc
+src/utils/__pycache__/__init__.cpython-39.pyc
+src/utils/__pycache__/singleton.cpython-39.pyc
+src/view/__pycache__/__init__.cpython-39.pyc
+src/view/__pycache__/abstractview.cpython-39.pyc
+src/view/__pycache__/session.cpython-39.pyc
