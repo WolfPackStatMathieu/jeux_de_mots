@@ -20,12 +20,13 @@ async def create_joueur(pseudo):
     joueur_dao=JoueurDAO()
     return joueur_dao.create(pseudo)
 
-#ENDPOINTS LISTE
 @kata.get("/joueur/{id_joueur}/liste")
 async def get_liste_by_id_joueur(id_joueur):
     liste_dao=ListeDAO()
     return liste_dao.get_liste_by_id_joueur(id_joueur)
 
+
+#ENDPOINTS LISTE
 @kata.get("/liste/{id_liste}")
 async def get_mots_by_id_liste( id_liste):
     liste_dao=ListeDAO()
