@@ -12,12 +12,10 @@ class MotDAO():
                 , {"mot": mot}
             )
 
-            res = cursor.fetchall()
-            liste = []
-            for row in res :
-                liste.append(row[id_mot])
+            res = cursor.fetchone()
+            id_mot = res["id_mot"]
 
-        return liste
+        return id_mot
 
  
     def creer(self, mot):
@@ -46,10 +44,9 @@ class MotDAO():
                 , {"mot": mot}
             )
 
-            res = cursor.fetchone()
             cursor.execute("commit;")
 
-        return res
+
 
 
     def find(self, mot):

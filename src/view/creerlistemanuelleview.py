@@ -23,7 +23,12 @@ class CreerListeManuelleView(AbstractView):
 
     def make_choice(self):
         nom_liste = ASK_NOM_LISTE.execute()
-        premier_mot = ASK_PREMIER_MOT.execute()
+        mot = ASK_PREMIER_MOT.execute()
+
+        #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
+        from src.business_objects.proposition import Proposition
+        mot = Proposition(mot)
+        mot = Proposition.mot
 
         from src.dao.joueur_dao import JoueurDAO
         joueurdao = JoueurDAO()
@@ -34,6 +39,7 @@ class CreerListeManuelleView(AbstractView):
         listedao.creer(id_joueur, nom_liste)
 
         from src.dao.mot_dao import MotDAO
+        motdao = MotDAO()
         if not motdao.find(mot) :
             motdao.creer(mot)
         id_mot = motdao.get_id_by_mot(mot)

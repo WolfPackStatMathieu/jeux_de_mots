@@ -3,18 +3,23 @@ from src.dao.db_connection import DBConnection
 
 class ScoreDAO():
 
-    def creer(self, id_joueur, score):
+    def ajouter(self, id_joueur, score):
 
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "INSERT INTO score(id_joueur, score)"
-                " VALUES (%(id_joueur)s, %(score)s ) ;", {"id_joueur": id_joueur, "score": score})
+        if score > ScoreDAO().get_meilleur_score(id_joueur):
+            print('OK')
 
-            cursor.execute("commit;")
+            connection = DBConnection().connection
+            with connection.cursor() as cursor :
+                cursor.execute(
+                    "INSERT INTO score(id_joueur, score)"
+                    " VALUES (%(id_joueur)s, %(score)s ) ;", {"id_joueur": id_joueur, "score": score})
+                cursor.execute("commit;")
+        
+        else :
+            print('rien')
 
  
-    def get_meilleur_score(self, id_joueur):
+    def get_dernier_meilleur_score(self, id_joueur):
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
@@ -41,7 +46,7 @@ class ScoreDAO():
 
             cursor.execute("commit;")
 
-    def get_top_10(self):
+    def get_top_10_general(self):
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
@@ -55,6 +60,24 @@ class ScoreDAO():
             for row in res:
                 liste.append(row["score"])
         return liste
+    
+    def get_top_10_perso(self, id_joueur):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT score"
+                " FROM score"
+                " WHERE id_joueur = (%(id_joueur)s)"
+                " ORDER BY score DESC ;"
+                ,{"id_joueur": id_joueur})
+                
+            res=cursor.fetchmany(10)
+            liste=[]
+            for row in res:
+                liste.append(row["score"])
+        return liste
+
 
             
 

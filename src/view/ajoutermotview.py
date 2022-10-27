@@ -14,6 +14,11 @@ class AjouterMotView (AbstractView) :
 
     def make_choice(self):
         mot = ASK_MOT.execute()
+        #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
+        from src.business_objects.proposition import Proposition
+        mot = Proposition(mot)
+        mot = Proposition.mot
+        
         from src.dao.mot_dao import MotDAO
         motdao = MotDAO()
         if not motdao.find(mot) :
