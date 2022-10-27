@@ -4,7 +4,6 @@ from InquirerPy.base.control import Choice
 from src.view.abstractview import AbstractView
 from src.view.session import Session
 
-<<<<<<< HEAD
 class JouerView (AbstractView) :
     def __init__(self):
         if 1 == 1 or partie_en_cours :
@@ -19,18 +18,6 @@ class JouerView (AbstractView) :
         else :
             from src.view.difficulteview import DifficulteView
             return DifficulteView()
-=======
-
-class JouerView (AbstractView) :
-
-    def __init__(self):
-        self.__questions = inquirer.select(
-            message=f'Bonjour {Session().pseudo}'
-            , choices=[
-                Choice('Définir la difficulté de la partie')
-                ,Choice('Voir proposition')]
-        )
->>>>>>> 21fa9cb7166ab44bf13dc6260659f7845455ef07
     
     def display_info(self):
         pass
@@ -48,15 +35,3 @@ class JouerView (AbstractView) :
                 print(partie.verifie_proposition(mot))
             from scr.view.propositionview import PropositionView
             return PropositionView()
-            
-        
-=======
-        if reponse == 'Nothing':
-            pass
-        elif reponse== 'Définir la difficulté de la partie':
-            from src.view.difficulteview import DifficulteView
-            return DifficulteView()
-        elif reponse== 'Voir proposition':
-            from src.view.propositionview import PropositionView
-            return PropositionView()
->>>>>>> 21fa9cb7166ab44bf13dc6260659f7845455ef07
