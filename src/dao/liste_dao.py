@@ -257,6 +257,3 @@ class ListeDAO():
             for row in res:
                 liste.append(row["nom_liste"])
         return liste
-
-liste_dao=ListeDAO()
-print(liste_dao.get_mots_by_id_liste(5))
