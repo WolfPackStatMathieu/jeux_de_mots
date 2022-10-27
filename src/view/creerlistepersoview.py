@@ -12,7 +12,7 @@ class CreerListePersoView (AbstractView) :
             message=f'Bonjour {Session().pseudo}'
             , choices=[
                 Choice('Créer une liste manuellement')
-                ,Choice('Importer un liste')]
+                ,Choice('Importer une liste')]
         )
     
     def display_info(self):
@@ -25,6 +25,6 @@ class CreerListePersoView (AbstractView) :
         elif reponse== 'Créer une liste manuellement':
             from src.view.listemanuelleview import ListeManuelleView
             return ListeManuelleView()
-        elif reponse== 'Importer un liste':
+        elif reponse== 'Importer une liste':
             from src.view.listeimporteeview import ListeImporteeView
             return ListeImporteeView()
