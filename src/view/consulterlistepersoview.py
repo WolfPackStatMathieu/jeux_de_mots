@@ -13,7 +13,7 @@ class ConsulterListePersoView (AbstractView) :
         id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
         from src.dao.liste_dao import ListeDAO
         listedao = ListeDAO()
-        listes = listedao.get_liste_by_id_joueur(id_joueur)
+        listes = listedao.get_liste_by_id_joueur(5)
 
         self.__questions = inquirer.select(
             message=f'Quelle liste veux tu sélectionner?'
@@ -25,7 +25,7 @@ class ConsulterListePersoView (AbstractView) :
 
     def make_choice(self):
         nom_liste = self.__questions.execute()
-        session.liste = nom_liste
+        Session().liste = nom_liste
         from src.dao.liste_dao import ListeDAO
         liste_mots = ListeDAO.get_mots_by_nom_liste(self, nom_liste)
         for mot in liste_mots :
