@@ -27,8 +27,8 @@ class CreerListeManuelleView(AbstractView):
 
         #On transforme ensuite le mot pour supprimer les accents et mettre en majuscule
         from src.business_objects.proposition import Proposition
-        mot = Proposition(mot)
-        mot = Proposition.mot
+        proposition = Proposition(mot)
+        mot = proposition.mot
 
         from src.dao.joueur_dao import JoueurDAO
         joueurdao = JoueurDAO()
@@ -36,14 +36,14 @@ class CreerListeManuelleView(AbstractView):
 
         from src.dao.liste_dao import ListeDAO
         listedao = ListeDAO()
-        listedao.creer(id_joueur, nom_liste)
+        listedao.creer(id_joueur['id_joueur'], nom_liste)
 
         from src.dao.mot_dao import MotDAO
         motdao = MotDAO()
         if not motdao.find(mot) :
             motdao.creer(mot)
         id_mot = motdao.get_id_by_mot(mot)
-        id_liste = listedao.id(Session().liste)
+        id_liste = listedao.get_id_by_nom(nom_liste)
         listedao.ajouter_mot(id_liste, id_mot)
 
         from src.view.accueilpersoview import AccueilPersoView
