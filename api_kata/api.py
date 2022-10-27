@@ -13,14 +13,9 @@ async def root():
 
     return({"message":"bonjour"})
 
-<<<<<<< HEAD
 
 #ENDPOINTS JOUEUR
 @kata.get("/joueur/{id_joueur}")
-=======
-@kata.get("/joueur/{id_joueur}",
-          response_description='la string du pseudo du joueur demandé')
->>>>>>> mathieu
 async def get_joueur_by_id(id_joueur):
     """permet de récupérer le pseudo d'un joueur par son id
 
@@ -34,7 +29,6 @@ async def create_joueur(pseudo):
     joueur_dao=JoueurDAO()
     return joueur_dao.create(pseudo)
 
-<<<<<<< HEAD
 #ENDPOINTS LISTE
 @kata.get("/joueur/{id_joueur}/liste")
 async def get_liste_by_id_joueur(id_joueur):
@@ -47,10 +41,6 @@ async def get_mots_by_id_liste( id_liste):
     return liste_dao.get_mots_by_id_liste(id_liste)
 
 
-    
-    
-=======
 
->>>>>>> mathieu
 if __name__=='__main__':
     uvicorn.run(kata, host="127.0.0.1", port=80)
