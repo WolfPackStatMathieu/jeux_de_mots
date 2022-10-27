@@ -9,9 +9,11 @@ class ConsulterListePersoView (AbstractView) :
     
     def __init__(self):
         from src.dao.joueur_dao import JoueurDAO
-        id_joueur = JoueurDAO.get_id_by_pseudo(self, Session().pseudo)
+        joueurdao = JoueurDAO()
+        id_joueur = joueurdao.get_id_by_pseudo(Session().pseudo)
         from src.dao.liste_dao import ListeDAO
-        listes = ListeDAO.get_liste_by_id_joueur(self, id)
+        listedao = ListeDAO()
+        listes = listedao.get_liste_by_id_joueur(id_joueur)
 
         self.__questions = inquirer.select(
             message=f'Quelle liste veux tu sélectionner?'

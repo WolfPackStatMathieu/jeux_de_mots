@@ -24,7 +24,7 @@ class CreerListePersoView (AbstractView) :
             pass
         elif reponse== 'Créer une liste manuellement':
             from src.view.listemanuelleview import ListeManuelleView
-            return ListeManuelleView()
+            return CreerListeManuelleView()
         elif reponse== 'Importer une liste':
             from src.view.listeimporteeview import ListeImporteeView
-            return ListeImporteeView()
+            return CreerListeImporteeView()
