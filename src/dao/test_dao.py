@@ -8,8 +8,8 @@ from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 import re
 
-a=ListeDAO().ajouter_mot(4, 8)
-print(a)
+a=PartieDAO().get_partie_by_id_joueur(1)
+
 #ScoreDAO().ajouter(5, 20)
 #print(ScoreDAO().get_top_10_perso(5))
 #ScoreDAO().ajouter(5, 27)
