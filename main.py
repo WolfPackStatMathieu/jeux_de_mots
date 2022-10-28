@@ -1,4 +1,5 @@
 import dotenv
+from collections.abc import Mapping
 from src.view.accueilkataview import AccueilKataView
 
 # This script is the entry point of your application

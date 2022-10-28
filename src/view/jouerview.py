@@ -6,7 +6,8 @@ from src.view.session import Session
 
 class JouerView (AbstractView) :
     def __init__(self):
-        if 1 == 1 or partie_en_cours :
+        if partie_en_cours :
+
             self.__questions = inquirer.select(
                 message=f'Bonjour {Session().pseudo}, que souhaites-tu faire?'
                 , choices=[
@@ -33,3 +34,5 @@ class JouerView (AbstractView) :
                 print(partie.verifie_proposition(mot))
             from scr.view.propositionview import PropositionView
             return PropositionView()
+            
+        
