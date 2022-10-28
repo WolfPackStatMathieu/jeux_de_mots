@@ -11,10 +11,10 @@ class MotDAO():
                 "SELECT id_mot FROM mots WHERE mot = %(mot)s"
                 , {"mot": mot}
             )
-
+            id_mot=None
             res = cursor.fetchone()
-            id_mot = res["id_mot"]
-
+            if res : 
+                id_mot = res["id_mot"]
         return id_mot
 
  
