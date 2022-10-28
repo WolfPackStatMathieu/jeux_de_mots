@@ -3,15 +3,15 @@ from src.business_objects.partie import Partie
 from src.business_objects.proposition import Proposition
 from src.business_objects.difficultes import Difficultes
 
-class TestPartie(TestCase) :
-    def test_donne_mot_obj(self) :
-        id_partie = 1
-        liste_mots_proposes = []
-        est_liste_perso = True
-        id_liste = 4
-        difficultes = Difficultes()
+#class TestPartie(TestCase) :
+    #def test_donne_mot_obj(self) :
+        #id_partie = 1
+        #liste_mots_proposes = []
+        #est_liste_perso = True
+        #id_liste = 4
+        #difficultes = Difficultes()
 
-        partie1 = Partie(id_partie, liste_mots_proposes, est_liste_perso, id_liste, difficultes)
+        #partie1 = Partie(id_partie, liste_mots_proposes, est_liste_perso, id_liste, difficultes)
     
     def test_occurence_lettres(self) :
         id_partie = 1
