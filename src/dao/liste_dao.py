@@ -253,16 +253,8 @@ class ListeDAO():
                 , {"id_liste": id_liste}
             )
 
-<<<<<<< HEAD
-            res = cursor.fetchall()
-            liste=[]
-            for row in res:
-                liste.append(row["nom_liste"])
-        return liste
-=======
             res = cursor.fetchone()
             nom_liste = res['nom_liste']
 
         return nom_liste
->>>>>>> 634ee69503c69c762351b73c0dd18cd37247c404
 
