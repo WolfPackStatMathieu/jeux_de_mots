@@ -17,10 +17,10 @@ async def create_mot(mot: str =  Query(min_length=1, max_length=50,regex="^[A-Za
 
 
 #Obetnir l'id d'un mot
-@router.get("/{mot}")
-async def create_mot(mot):
-    mot_dao=MotDAO()
-    return(mot_dao.get_id_by_mot(mot))
+# @router.get("/{mot}")
+# async def create_mot(mot):
+#     mot_dao=MotDAO()
+#     return(mot_dao.get_id_by_mot(mot))
 
 #Obtenir l'id d'un mot
 @router.get("/mot/{mot}")
