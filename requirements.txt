@@ -1,0 +1,6 @@
+requests
+fastapi
+pydantic
+uvicorn
+InquirerPy
+psycopg2-binary

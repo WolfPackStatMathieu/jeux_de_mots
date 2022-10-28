@@ -105,4 +105,3 @@ class ScoreDAO():
                 liste.append(row["score"])
         return liste
 
-    

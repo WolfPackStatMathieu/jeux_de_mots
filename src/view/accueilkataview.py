@@ -1,14 +1,16 @@
+
+
 from InquirerPy import inquirer
 from InquirerPy.base.control import Choice
 
-from src.vues.abstractview import AbstractView
-from src.vues.session import Session
+from src.view.abstractview import AbstractView
+from src.view.session import Session
 
 class AccueilKataView (AbstractView) :
 
     def __init__(self):
         self.__questions = inquirer.select(
-            message=f'Bonjour '
+            message=f'Bonjour'
             , choices=[
                 Choice('Se connecter')
                 ,Choice('Créer un compte')
@@ -21,16 +23,15 @@ class AccueilKataView (AbstractView) :
     def make_choice(self):
         reponse = self.__questions.execute()
         if reponse == 'Se connecter' :
-            from vues.connectionview import ConnectionView
+            from src.view.connectionview import ConnectionView
             return ConnectionView()
         elif reponse == 'Créer un compte' :
-            from vues.creercompteview import CreerCompteView
+            from src.view.creercompteview import CreerCompteView
             return CreerCompteView()
         elif reponse == "Consulter les 10 meilleurs scores" :
-            from vues.toptenview import ViewTopTen
+            from src.view.toptenview import ViewTopTen
             return ViewTopTen()
 
 
-print(AccueilKataView())
 
 

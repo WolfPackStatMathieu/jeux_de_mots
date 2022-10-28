@@ -29,11 +29,8 @@ class JoueurDAO():
             )
 
             res = cursor.fetchone()
-
-        pseudo = None 
-
-        if res :
-            pseudo = res
+            
+            pseudo = res["pseudo"]
 
         return pseudo
 
