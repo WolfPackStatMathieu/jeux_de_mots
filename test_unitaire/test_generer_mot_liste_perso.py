@@ -4,12 +4,13 @@ from src.dao.liste_dao import ListeDAO
 
 class TestGenererMotListePerso(TestCase) :
     def test_generer_mot(self) :
-        id_liste = 2
+        id_liste = 1
+
+        liste = ListeDAO()
 
         objetTest = GenererMotListePerso(id_liste)
-        liste = ListeDAO()
         
-        self.assertIn(objetTest.generer, ['titi', 'voiture', 'chocolat', 'Gateau', 'CHAISE', 'TABLE', 'STYLO'])
+        self.assertEqual("toto", objetTest.generer())
     
 if __name__ == "__main__" :
     test=TestGenererMotListePerso()
