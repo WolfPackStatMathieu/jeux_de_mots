@@ -126,12 +126,12 @@ class JoueurDAO():
                 "SELECT id_joueur FROM joueur WHERE pseudo = %(pseudo)s"
                 , {"pseudo": pseudo}
             )
-
             res = cursor.fetchone()
-
-        id_joueur = None 
-
-        if res :
-            id_joueur = res
+            id_joueur=None
+            if res :
+                id_joueur = res['id_joueur']
 
         return id_joueur
+
+joueur_dao=JoueurDAO()
+print(joueur_dao.get_id_by_pseudo('Apolline'))
