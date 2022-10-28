@@ -18,3 +18,10 @@ async def create_mot(mot):
 async def create_mot(mot):
     mot_dao=MotDAO()
     return(mot_dao.get_id_by_mot(mot))
+
+#Obtenir l'id d'un mot 
+@router.get("/mot/{mot}")
+async def get_id_by_mot(mot):
+    mot_dao=MotDAO()
+    id_mot=mot_dao.get_id_by_mot(mot)
+    return(id_mot)

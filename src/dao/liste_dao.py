@@ -24,15 +24,17 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT nom_liste FROM liste WHERE id_joueur = %(id)s"
+                "SELECT id_liste, nom_liste FROM liste WHERE id_joueur = %(id)s"
                 , {"id": id}
             )
 
             res = cursor.fetchall()
-            liste=[]
+            liste1=[]
+            liste2=[]
             for row in res:
-                liste.append(row["nom_liste"])
-        return liste
+                liste1.append(row["nom_liste"])
+                liste2.append(row["id_liste"])
+        return ([liste1, liste2])
 
 
     def creer(self, id_joueur, nom_liste):
@@ -237,23 +239,22 @@ class ListeDAO():
                 , {"nom_liste": nom_liste}
             )
 
-            res = cursor.fetchall()
-            liste=[]
-            for row in res:
-                liste.append(row["id_liste"])
-        return liste
+            res = cursor.fetchone()
+            id_liste = res['id_liste']
+
+        return id_liste
     
     def get_nom_by_id(self, id_liste):
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT id_liste FROM liste WHERE nom_liste = %(id_liste)s"
+                "SELECT nom_liste FROM liste WHERE id_liste = %(id_liste)s"
                 , {"id_liste": id_liste}
             )
 
-            res = cursor.fetchall()
-            liste=[]
-            for row in res:
-                liste.append(row["nom_liste"])
-        return liste
+            res = cursor.fetchone()
+            nom_liste = res['nom_liste']
+
+        return nom_liste
+
