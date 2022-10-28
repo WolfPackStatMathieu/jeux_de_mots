@@ -5,7 +5,7 @@ from src.dao.liste_dao import ListeDAO
 from router import joueur_get
 from router import liste_get
 from router import mot_get
-from router import score_get
+# from router import score_get
 
 kata=FastAPI()
 kata.include_router(joueur_get.router)
