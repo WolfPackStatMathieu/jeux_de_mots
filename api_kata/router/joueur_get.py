@@ -4,6 +4,7 @@ from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.score_dao import ScoreDAO
 from src.dao.partie_dao import PartieDAO
+from src.dao.proposition_dao import PropositionDAO
 
 router = APIRouter(
     prefix='/joueur',
@@ -54,11 +55,7 @@ async def create_by_name(id_joueur, name):
     liste_dao=ListeDAO()
     return(liste_dao.creer(id_joueur, name))
 
-#Ajouter un score à un joueur
-@router.post("/{id_joueur}/score/{score}")
-async def ajoute_score_joueur(id_joueur, score):
-    score_dao=ScoreDAO()
-    return(score_dao.ajouter(id_joueur, score))
+
 
 #Obtenir le top 10 des meilleurs scores d'un joueur
 @router.get("/{id_joueur}/score")
@@ -69,6 +66,33 @@ async def get_best_score(id_joueur):
 #Obtenir la partie en cours d'un joueur 
 @router.get("/{id_joueur}/partie")
 async def get_partie_by_joueur(id_joueur):
-    partie_dao=PartieDAO
-    partie=partie_dao.get_partie_by_joueur
-    return(partie)
+    partie_dao=PartieDAO()
+    propositiondao=PropositionDAO()
+    id=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    partie=partie_dao.get_partie_by_id(id)
+    proposition=propositiondao.get_by_id_partie(id)
+    return(id,partie, proposition)
+
+#Sauvegarder la partie en cours d'un joueur
+#Ca marche pas : j'ai pas réussi à créer une partie dans la bdd
+@router.post("/{id_joueur}/partie/{partie}")
+async def get_partie_by_joueur(id_joueur, partie):
+    partie_dao=PartieDAO()
+    nom_partie = partie.nom
+    score_final = partie.score 
+    mot_objectif=partie.mot_objectif
+    temps_max = partie.difficultes.temps
+    langue = "anglais" #on joue plus avec la langue : table partie à refaire
+    nb_tentatives_max = partie.difficultes.nb_tentatives 
+    indice = partie.difficultes.indice
+    liste_perso = partie.est_liste_perso
+    id_liste=partie.id_liste
+    partie_dao.creer(id_joueur, nom_partie, score_final, mot_objectif, temps_max, langue, nb_tentatives_max, indice, liste_perso, id_liste)
+
+
+#Ajouter un score à un joueur
+#Ca marche pas 
+@router.post("/{id_joueur}/score/{score}")
+async def ajoute_score_joueur(id_joueur, score):
+    score_dao=ScoreDAO()
+    return(score_dao.ajouter(id_joueur, score))
