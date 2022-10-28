@@ -5,12 +5,13 @@ class ScoreDAO():
 
     def ajouter(self, id_joueur, score):
 
-        if score > ScoreDAO().get_dernier_meilleur_score(id_joueur):
+        if score > ScoreDAO().get_dernier_meilleur_score(id_joueur)['score']:
 
-            if len(ScoreDAO().get_top_10_perso(id_joueur)) == 10 :
+            if len(ScoreDAO().get_top_10_perso(id_joueur)) >= 10 :
 
-                id_score_a_supprimer = ScoreDAO().get_dernier_meilleur_score_id(id_joueur)
+                id_score_a_supprimer = ScoreDAO().get_dernier_meilleur_score(id_joueur)['id_score']
                 ScoreDAO().supprimer(id_score_a_supprimer)
+                
                 connection = DBConnection().connection
                 with connection.cursor() as cursor :
                     cursor.execute(
@@ -28,38 +29,6 @@ class ScoreDAO():
         else :
             pass
        
-
- 
-    def get_dernier_meilleur_score(self, id_joueur):
-
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT score FROM score "
-                "WHERE id_joueur = (%(id_joueur)s) "
-                "ORDER BY score ASC ;"
-                , {"id_joueur": id_joueur})
-
-            res = cursor.fetchmany(10)
-            dernier_meilleur_score = res[0]['score']
-
-        return dernier_meilleur_score
-
-    def get_dernier_meilleur_score_id(self, id_joueur):
-
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT id_score FROM score "
-                "WHERE id_joueur = (%(id_joueur)s) "
-                "ORDER BY score ASC ;"
-                , {"id_joueur": id_joueur})
-
-            res = cursor.fetchmany(10)
-            id_dernier_meilleur_score = res[0]['id_score']
-
-        return id_dernier_meilleur_score
-
 
     def supprimer(self, id_score):
 
@@ -99,10 +68,25 @@ class ScoreDAO():
                 ,{"id_joueur": id_joueur})
                 
             res=cursor.fetchmany(10)
-            liste=[]
+            top_10_perso=[]
             for row in res:
-                liste.append(row["score"])
-        return liste
+                top_10_perso.append(row["score"])
+        return top_10_perso
+    
+    def get_dernier_meilleur_score(self, id_joueur):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT score, id_score FROM score "
+                "WHERE id_joueur = (%(id_joueur)s) "
+                "ORDER BY score ASC ;"
+                , {"id_joueur": id_joueur})
+
+            res = cursor.fetchmany(10)
+            dernier_meilleur_score = res[0]
+        
+        return dernier_meilleur_score
     
     def get_all_perso(self, id_joueur):
 
