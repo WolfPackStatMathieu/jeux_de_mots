@@ -8,7 +8,12 @@ from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
 
-print(PropositionDAO().get_proposition_by_partie(1))
+a=ListeDAO().get_nom_by_id(4)
+print(a)
+#ScoreDAO().ajouter(5, 20)
+#print(len(ScoreDAO().get_top_10_perso(5)))
+#print(ScoreDAO().get_all_perso(5))
+
 
 #PartieDAO().supprimer(3)
 
