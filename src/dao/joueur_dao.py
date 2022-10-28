@@ -77,21 +77,17 @@ class JoueurDAO():
             
 
         '''
-        if JoueurDAO().pseudo_existe(pseudo) == True :
-            return('Ce pseudo est déjà utilisé.')
-        
-        if JoueurDAO().pseudo_existe(pseudo) == False :
 
-            connection = DBConnection().connection
-            with connection.cursor() as cursor :
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
                 cursor.execute(
                     "INSERT INTO joueur(pseudo)"
                     " VALUES (%(pseudo)s) RETURNING id_joueur, pseudo;"
                     ,{"pseudo": pseudo})
 
-                res = cursor.fetchone()
+                #res = cursor.fetchone()
                 cursor.execute("commit;")
-            return res
+        #return res
 
    
     def get_all_joueurs(self):
