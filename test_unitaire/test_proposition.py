@@ -25,21 +25,27 @@ class TestProposition(TestCase) :
         prop = Proposition(mot)
 
         self.assertEqual("ealiemc", prop.supprime_accent())
+    
+    def test_transforme_proposition(self) :
+        mot = "EyêLmîkà"
+
+        prop = Proposition(mot)
+        prop.transforme_proposition()
+
+        self.assertEqual("EYELMIKA", prop.mot)
 
 
 if __name__ == "__main__" :
-    print("test est_autorise()")
     test = TestProposition()
+
+    print("test est_autorise()")
     print(test.test_est_autorise())
 
-if __name__ == "__main__" :
     print("test majuscule()")
-    test = TestProposition()
     print(test.test_majuscule())
 
-if __name__ == "__main__" :
     print("test supprime_accent()")
-    test = TestProposition()
     print(test.test_supprime_accent())
 
-    
+    print("test transforme_proposition()")
+    print(test.test_transforme_proposition()) 
