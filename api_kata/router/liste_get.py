@@ -7,11 +7,13 @@ router = APIRouter(
     tags=['liste']
 )
 
-#Obtenir les mots d'une liste
+#Obtenir une liste par son identifiant
 @router.get("/{id_liste}")
 async def get_mots_by_id_liste(id_liste):
     liste_dao=ListeDAO()
-    return(liste_dao.get_mots_by_id_liste(id_liste))
+    nom=liste_dao.get_nom_by_id(id_liste)
+    contenu=liste_dao.get_mots_by_id_liste(id_liste)
+    return(nom, contenu)
 
 #Ajouter un mot dans une liste
 @router.post("/{id_liste}/mot/{id_mot}")

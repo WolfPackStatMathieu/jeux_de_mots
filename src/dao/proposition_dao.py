@@ -11,11 +11,11 @@ class PropositionDAO():
                 , {"id_partie": id_partie}
             )
             res = cursor.fetchall()
-            liste = []
+            liste_propositions = []
             for row in res:
                 liste.append(row["proposition"])
 
-        return liste
+        return liste_propositions
 
     def creer(self, id_partie, proposition):
 

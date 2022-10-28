@@ -7,9 +7,9 @@ from src.view.session import Session
 class SupprimerMotView (AbstractView) :
     def __init__(self):
         from src.dao.liste_dao import ListeDAO
-        id_liste = ListeDAO.id(self, Session().liste)
-        from src.dao.mot_dao import MotDAO
-        liste_mots = MotDAO.get_mots_by_id_liste(self, id_liste)
+        listedao = ListeDAO()
+        id_liste = listedao.get_id_by_nom(Session().liste)
+        liste_mots = listedao.get_mots_by_id_liste(id_liste)
 
         self.__questions = inquirer.select(
             message=f'Quel mot veux tu supprimer à ta liste {Session().liste}?'

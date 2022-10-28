@@ -6,10 +6,13 @@ from src.dao.mot_dao import MotDAO
 from src.dao.proposition_dao import PropositionDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
+import re
 
-
-print(PropositionDAO().get_proposition_by_partie(1))
-
+a=ListeDAO().ajouter_mot(4, 8)
+print(a)
+#ScoreDAO().ajouter(5, 20)
+#print(ScoreDAO().get_top_10_perso(5))
+#ScoreDAO().ajouter(5, 27)
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
