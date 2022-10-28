@@ -11,7 +11,6 @@ class PropositionDAO():
                 , {"id_partie": id_partie}
             )
             res = cursor.fetchall()
-            print(res)
             liste_propositions = []
             for row in res:
                 liste_propositions.append(row["proposition"])
