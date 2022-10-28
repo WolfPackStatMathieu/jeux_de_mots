@@ -3,6 +3,7 @@ from fastapi import *
 from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
 from src.dao.score_dao import ScoreDAO
+from src.dao.partie_dao import PartieDAO
 
 router = APIRouter(
     prefix='/joueur',
@@ -64,3 +65,10 @@ async def ajoute_score_joueur(id_joueur, score):
 async def get_best_score(id_joueur):
     score_dao=ScoreDAO()
     return(score_dao.get_top_10_perso(id_joueur))
+
+#Obtenir la partie en cours d'un joueur 
+@router.get("/{id_joueur}/partie")
+async def get_partie_by_joueur(id_joueur):
+    partie_dao=PartieDAO
+    partie=partie_dao.get_partie_by_joueur
+    return(partie)
