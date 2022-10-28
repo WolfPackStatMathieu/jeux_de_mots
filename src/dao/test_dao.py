@@ -8,13 +8,13 @@ from src.dao.partie_dao import PartieDAO
 from src.dao.score_dao import ScoreDAO
 
 
-a=ListeDAO().get_nom_by_id(4)
-print(a)
+
+
+
+print(ListeDAO().get_liste_by_id_joueur(2))
 #ScoreDAO().ajouter(5, 20)
-#print(len(ScoreDAO().get_top_10_perso(5)))
-#print(ScoreDAO().get_all_perso(5))
-
-
+#print(ScoreDAO().top_10_perso(5))))
+#ScoreDAO().ajouter(5, 27)
 #PartieDAO().supprimer(3)
 
 #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)

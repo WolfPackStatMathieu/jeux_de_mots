@@ -24,15 +24,17 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT nom_liste FROM liste WHERE id_joueur = %(id)s"
+                "SELECT id_liste, nom_liste FROM liste WHERE id_joueur = %(id)s"
                 , {"id": id}
             )
 
             res = cursor.fetchall()
-            liste=[]
+            liste1=[]
+            liste2=[]
             for row in res:
-                liste.append(row["nom_liste"])
-        return liste
+                liste1.append(row["nom_liste"])
+                liste2.append(row["id_liste"])
+        return ([liste1, liste2])
 
 
     def creer(self, id_joueur, nom_liste):
