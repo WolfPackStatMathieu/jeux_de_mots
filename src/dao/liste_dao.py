@@ -237,24 +237,30 @@ class ListeDAO():
                 , {"nom_liste": nom_liste}
             )
 
-            res = cursor.fetchall()
-            liste=[]
-            for row in res:
-                liste.append(row["id_liste"])
-        return liste
+            res = cursor.fetchone()
+            id_liste = res['id_liste']
+
+        return id_liste
     
     def get_nom_by_id(self, id_liste):
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT id_liste FROM liste WHERE nom_liste = %(id_liste)s"
+                "SELECT nom_liste FROM liste WHERE id_liste = %(id_liste)s"
                 , {"id_liste": id_liste}
             )
 
+<<<<<<< HEAD
             res = cursor.fetchall()
             liste=[]
             for row in res:
                 liste.append(row["nom_liste"])
         return liste
+=======
+            res = cursor.fetchone()
+            nom_liste = res['nom_liste']
+
+        return nom_liste
+>>>>>>> 634ee69503c69c762351b73c0dd18cd37247c404
 
