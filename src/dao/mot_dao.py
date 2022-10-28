@@ -1,9 +1,12 @@
 from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
+import re #import regex
 
 class MotDAO():
 
     def get_id_by_mot(self, mot):
+
+        id_mot = None
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
@@ -13,6 +16,7 @@ class MotDAO():
             )
 
             res = cursor.fetchone()
+        if res:
             id_mot = res["id_mot"]
 
         return id_mot
@@ -35,15 +39,32 @@ class MotDAO():
             Le mot créé
         '''
 
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "INSERT INTO mots(mot)"
-                " VALUES (%(mot)s) RETURNING id_mot, mot;"
-                , {"mot": mot}
-            )
+        regex = "^[A-Za-z]+$"
+        mot_a_tester = mot
+        resultat = re.match(regex, mot_a_tester)
 
-            cursor.execute("commit;")
+        if resultat == None :
+            print("Ce mot n'est pas correct (caractères spéciaux et espaces non autorisés).")
+            nouveau_mot = None
+
+        else :
+
+            connection = DBConnection().connection
+            with connection.cursor() as cursor :
+                cursor.execute(
+                    "INSERT INTO mots(mot)"
+                    " VALUES (%(mot)s) RETURNING id_mot, mot;"
+                    , {"mot": mot}
+                )
+                res = cursor.fetchone()
+                cursor.execute("commit;")
+
+            if res :
+                nouveau_mot = res
+        
+        return nouveau_mot
+
+
 
 
 
