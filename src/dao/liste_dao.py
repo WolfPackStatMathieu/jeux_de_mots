@@ -5,7 +5,6 @@ class ListeDAO():
 
     def get_liste_by_id_joueur(self, id):
 
-
         '''Méthode get_liste_by_id_joueur
         
         Permet de retourner les listes associées à un id_joueur
@@ -21,7 +20,7 @@ class ListeDAO():
             Liste des listes de mots du joueur
 
         '''
-        liste = None
+
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -30,14 +29,12 @@ class ListeDAO():
             )
 
             res = cursor.fetchall()
-        if res :
-            liste_noms=[]
-            liste_id=[]
+            liste1=[]
+            liste2=[]
             for row in res:
-                liste_noms.append(row["nom_liste"])
-                liste_id.append(row["id_liste"])
-            liste = [liste_noms, liste_id]
-        return liste
+                liste1.append(row["nom_liste"])
+                liste2.append(row["id_liste"])
+        return ([liste1, liste2])
 
 
     def creer(self, id_joueur, nom_liste):
@@ -61,7 +58,7 @@ class ListeDAO():
             Une liste vide
 
         '''
-        nouvelle_liste = None
+
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -71,11 +68,7 @@ class ListeDAO():
             )
 
             cursor.execute("commit;")
-        
-        if res :
-            nouvelle_liste = res
 
-        return nouvelle_liste
     
     def ajouter_mot(self, id_liste, id_mot):
 
@@ -96,20 +89,15 @@ class ListeDAO():
         liste : list
 
         '''
-        nouveau_lien = None
+
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
                 "INSERT INTO passage_liste_mot(id_liste, id_mot)"
-                " VALUES (%(id_liste)s, %(id_mot)s) RETURNING id_liste, id_mot ;"
+                " VALUES (%(id_liste)s, %(id_mot)s) ;"
                 , {"id_liste": id_liste, "id_mot" : id_mot}
             )
-            res = cursor.fetchone()
             cursor.execute("commit;")
-        if res :
-            nouveau_lien = res
-        
-        return nouveau_lien
 
     
     def get_mots_by_id_liste(self, id):
