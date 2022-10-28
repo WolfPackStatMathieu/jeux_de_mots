@@ -81,3 +81,18 @@ class PartieDAO():
                 #liste.append(row["nom_liste"])
         return res
     
+    def get_partie_by_id_joueur(self, id_joueur):
+
+        connection = DBConnection().connection
+        with connection.cursor() as cursor :
+            cursor.execute(
+                "SELECT * FROM partie WHERE id_joueur = %(id_joueur)s"
+                , {"id_joueur": id_joueur}
+            )
+
+            res = cursor.fetchall()
+            partie=[]
+            for row in res:
+                partie.append(row[0])
+        return res
+    
