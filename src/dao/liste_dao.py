@@ -269,5 +269,3 @@ class ListeDAO():
             nom_liste = res['nom_liste']
 
         return nom_liste
-
->>>>>>> 694e384c04b6941cdb0e66872972946028e44036
