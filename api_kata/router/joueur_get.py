@@ -12,6 +12,7 @@ router = APIRouter(
 #Obtenir le pseudo d'un joueur
 @router.get("/{id_joueur}",
           response_description='la string du pseudo du joueur demandé')
+
 async def get_joueur_by_id(id_joueur):
     """permet de récupérer le pseudo d'un joueur par son id
 
@@ -20,11 +21,14 @@ async def get_joueur_by_id(id_joueur):
     joueur_dao=JoueurDAO()
     return joueur_dao.get_pseudo_by_id(id_joueur)
 
-#Obtenir l'id d'un joueur par son pseudo
+#Obtenir l'id et le top ten d'un joueur par son pseudo
 @router.get("/pseudo/{pseudo}")
 async def get_joueur_by_pseudo(pseudo):
     joueur_dao=JoueurDAO()
-    return(joueur_dao.get_id_by_pseudo(pseudo))
+    score_dao=ScoreDAO()
+    id_joueur=joueur_dao.get_id_by_pseudo(pseudo)
+    # top_ten=score_dao.get_top_10_perso(id_joueur)
+    return(id_joueur)
 
 #Créer un joueur
 @router.post("/{pseudo}")
@@ -36,11 +40,12 @@ async def create_joueur(pseudo):
 @router.get("/{id_joueur}/liste")
 async def get_liste_by_id_joueur(id_joueur):
     liste_dao=ListeDAO()
-    nom=liste_dao.get_liste_by_id_joueur(id_joueur)
+    nom=liste_dao.get_liste_by_id_joueur(id_joueur)[0]
+    id=liste_dao.get_liste_by_id_joueur(id_joueur)[1]
     contenu=[]
     for nom_liste in nom:
         contenu.append(liste_dao.get_mots_by_nom_liste(nom_liste))
-    return(nom, contenu)
+    return(nom, contenu, id)
 
 #Créer une liste associée à un joueur
 @router.post("/{id_joueur}/liste/{name}")
