@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from fastapi import *
 from src.dao.mot_dao import MotDAO
 
@@ -9,9 +9,12 @@ router = APIRouter(
 
 #Creer un mot
 @router.post("/contenu/{mot}")
-async def create_mot(mot):
+async def create_mot(mot: str =  Query(min_length=1, max_length=50,regex="^[A-Za-z]+$")):
     mot_dao=MotDAO()
     return(mot_dao.creer(mot))
+
+
+
 
 #Obetnir l'id d'un mot
 @router.get("/{mot}")
@@ -19,7 +22,7 @@ async def create_mot(mot):
     mot_dao=MotDAO()
     return(mot_dao.get_id_by_mot(mot))
 
-#Obtenir l'id d'un mot 
+#Obtenir l'id d'un mot
 @router.get("/mot/{mot}")
 async def get_id_by_mot(mot):
     mot_dao=MotDAO()
