@@ -38,7 +38,7 @@ class Partie :
         '''
         if self.est_liste_perso==True:
             generer=GenererMotListePerso(self.id_liste)
-        else : 
+        else :
             generer=GenererMotApi(self.difficultes.nb_lettres)
         return(generer.generer())
 
@@ -61,37 +61,37 @@ class Partie :
         return(L)
 
 
-    def lettres_bien_placées(self, mot_propose):
+    def lettres_bien_placees(self, mot_propose):
         '''retourne une liste avec chaque lettre du mot_propose et True si la lettre est bien placee et False sinon
         '''
         L=[]
         for i in range(len(mot_propose.mot)):
             if mot_propose.mot[i]==self.mot_objectif[i]:
                 L.append([mot_propose.mot[i], True])
-            else: 
+            else:
                 L.append([mot_propose.mot[i], False])
         return L
 
 
-    def lettres_mal_placées(self, mot_propose):
+    def lettres_mal_placees(self, mot_propose):
         '''retourne une liste avec chaque lettre du mot propose, True si la lettre est bien placée, 'Mal placée' si mal placée et False si la lettre n'est pas dans le mot objectif
         '''
-        bien_placées=self.lettres_bien_placées(mot_propose)
+        bien_placees=self.lettres_bien_placees(mot_propose)
         occurence=self.occurence_lettres()
         print(occurence)
         for i in range(len(mot_propose.mot)):
-            lettre=bien_placées[i][0]
-            if bien_placées[i][1]==True:
+            lettre=bien_placees[i][0]
+            if bien_placees[i][1]==True:
                 for elm in occurence:
                     if elm[0]==lettre:
                         elm[1]-=1
-            if bien_placées[i][1]==False:
+            if bien_placees[i][1]==False:
                 for elm in occurence:
                     if elm[0]==lettre:
                         if elm[1]!=0:
-                            bien_placées[i][1]="Mal placee"
+                            bien_placees[i][1]="Mal placee"
                             elm[1]-=1
-        return(bien_placées)
+        return(bien_placees)
 
     def verifie_proposition(self, mot_propose):
         '''Vérifie une proposition
@@ -99,7 +99,7 @@ class Partie :
         ------
         La proposition vérifiée (PropositionVerifiee)
         '''
-        verification=self.lettres_mal_placées(mot_propose)
+        verification=self.lettres_mal_placees(mot_propose)
         liste_lettres=[]
         for elt in verification:
             lettre=CodeLettre(elt[0],elt[1])
