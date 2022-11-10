@@ -64,7 +64,7 @@ async def get_best_score(id_joueur):
     return(score_dao.get_top_10_perso(id_joueur))
 
 #Obtenir la partie en cours d'un joueur 
-@router.get("/{id_joueur}/partie")
+@router.get("/{id_joueur}/partie_en_cours")
 async def get_partie_by_joueur(id_joueur):
     partie_dao=PartieDAO()
     propositiondao=PropositionDAO()
@@ -75,19 +75,18 @@ async def get_partie_by_joueur(id_joueur):
 
 #Sauvegarder la partie en cours d'un joueur
 #Ca marche pas : j'ai pas réussi à créer une partie dans la bdd
-@router.post("/{id_joueur}/partie/{partie}")
-async def get_partie_by_joueur(id_joueur, partie):
+@router.post("/{id_joueur}/partie")
+async def create_partie_by_joueur(id_joueur, partie):
     partie_dao=PartieDAO()
     nom_partie = partie.nom
     score_final = partie.score 
     mot_objectif=partie.mot_objectif
     temps_max = partie.difficultes.temps
-    langue = "anglais" #on joue plus avec la langue : table partie à refaire
     nb_tentatives_max = partie.difficultes.nb_tentatives 
     indice = partie.difficultes.indice
     liste_perso = partie.est_liste_perso
     id_liste=partie.id_liste
-    partie_dao.creer(id_joueur, nom_partie, score_final, mot_objectif, temps_max, langue, nb_tentatives_max, indice, liste_perso, id_liste)
+    partie_dao.creer(id_joueur, nom_partie, score_final, mot_objectif, temps_max, nb_tentatives_max, indice, liste_perso, id_liste)
 
 
 #Ajouter un score à un joueur

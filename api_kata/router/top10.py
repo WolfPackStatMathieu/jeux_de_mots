@@ -8,7 +8,9 @@ router = APIRouter(
 )
 
 #Obtenir le top 10 général
-@router.get("/top10")
+@router.get("")
 async def get_top10():
-    top10 = ScoreDAO.get_top_10_general()
+    score_dao=ScoreDAO()
+    top10 = score_dao.get_top_10_general()
     return (top10)
+
