@@ -107,7 +107,7 @@ class PartieDAO():
 
     
 
-# partie_dao=PartieDAO()
+partie_dao=PartieDAO()
 # id=partie_dao.get_id_partie_en_cours_joueur(5)
 # print(partie_dao.get_partie_by_id(id))
-# partie_dao.creer(2, "test", 0.0, "ESSAI", 8, 6, True, False, None)
+# partie_dao.creer(2, "test2", 0.0, "ESSAI", 8, 6, True, False, None)
