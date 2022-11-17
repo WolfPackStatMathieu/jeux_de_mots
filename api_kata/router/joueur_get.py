@@ -8,6 +8,7 @@ from src.dao.liste_dao import ListeDAO
 from src.dao.score_dao import ScoreDAO
 from src.dao.partie_dao import PartieDAO
 from src.dao.proposition_dao import PropositionDAO
+from pydantic import BaseModel
 
 router = APIRouter(
     prefix='/joueur',
@@ -87,24 +88,50 @@ async def get_partie_by_joueur(id_joueur):
     proposition=propositiondao.get_by_id_partie(id)
     return(id,partie, proposition)
 
+
+class PartieCreation(BaseModel):
+    nom_partie: str
+    mot_objectif : str
+    temps_max : float
+    nb_tentatives_max : int
+    indice : bool
+    liste_perso : bool
+    id_liste : int
+
+# class PropositionCreation(BaseModel):
+#     liste_prop : list
+
+
 #Sauvegarder la partie en cours d'un joueur
-#Ca marche pas : j'ai pas réussi à créer une partie dans la bdd
 @router.post("/{id_joueur}/partie")
-async def create_partie_by_joueur(id_joueur, partie):
+async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
     partie_dao=PartieDAO()
-    nom_partie = partie.nom
-    score_final = partie.score 
+    nom_partie=partie.nom_partie
     mot_objectif=partie.mot_objectif
-    temps_max = partie.difficultes.temps
-    nb_tentatives_max = partie.difficultes.nb_tentatives 
-    indice = partie.difficultes.indice
-    liste_perso = partie.est_liste_perso
+    temps_max=partie.temps_max
+    nb_tentatives_max=partie.nb_tentatives_max
+    indice=partie.indice
+    liste_perso=partie.liste_perso
     id_liste=partie.id_liste
-    partie_dao.creer(id_joueur, nom_partie, score_final, mot_objectif, temps_max, nb_tentatives_max, indice, liste_perso, id_liste)
+    return(partie_dao.creer(id_joueur, nom_partie, 0, mot_objectif, temps_max, nb_tentatives_max, indice, liste_perso, id_liste))
+   
+@router.post("/{id_joueur}/proposition/{proposition}")
+async def create_proposition_by_joueur(id_joueur, proposition):
+    partie_dao=PartieDAO()
+    proposition_dao=PropositionDAO()
+    id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    return(proposition_dao.creer(id_partie, proposition))
+
+
+@router.delete("/{id_joueur}/partie")
+async def delete_partie_by_joueur(id_joueur):
+    partie_dao=PartieDAO()
+    id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    return(partie_dao.supprimer(id_partie))
+
 
 
 #Ajouter un score à un joueur
-#Ca marche pas 
 @router.post("/{id_joueur}/score/{score}")
 async def ajoute_score_joueur(id_joueur, score):
     score_dao=ScoreDAO()
