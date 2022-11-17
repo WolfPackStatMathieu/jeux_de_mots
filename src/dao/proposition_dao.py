@@ -71,3 +71,6 @@ class PropositionDAO():
                 , {"id_partie": id_partie}
             )
             cursor.execute("commit;")
+
+proposition_dao=PropositionDAO()
+print(proposition_dao.get_by_id_partie(5))
