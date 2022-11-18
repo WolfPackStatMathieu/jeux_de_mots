@@ -24,7 +24,8 @@ class PartieDAO():
 
 
         '''
-
+        if id_liste==None: 
+            id_liste=NULL
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
