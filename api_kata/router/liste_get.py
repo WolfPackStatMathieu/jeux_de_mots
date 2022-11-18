@@ -1,4 +1,4 @@
-"""contient tous les endpoints concernant les listes
+"""routeur qui contient tous les endpoints concernant les listes
 """
 from fastapi import APIRouter
 from src.dao.liste_dao import ListeDAO
