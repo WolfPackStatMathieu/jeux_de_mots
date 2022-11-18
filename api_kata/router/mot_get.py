@@ -9,7 +9,7 @@ router = APIRouter(
 
 #Creer un mot
 @router.post("/contenu/{mot}")
-async def create_mot(mot: str =  Query(min_length=1, max_length=50,regex="^[A-Za-z]+$")):
+async def create_mot(mot: str =  Query(min_length=1, max_length=50,regex="^[A-zÀ-ú]+$")):
     mot_dao=MotDAO()
     return(mot_dao.creer(mot))
 
