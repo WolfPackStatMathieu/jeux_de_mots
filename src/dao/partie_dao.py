@@ -24,18 +24,28 @@ class PartieDAO():
 
 
         '''
-        if id_liste==None: 
-            id_liste=NULL
+
         connection = DBConnection().connection
         with connection.cursor() as cursor :
-            cursor.execute(
-                "INSERT INTO partie(id_joueur, nom_partie, score_final, mot_objectif, temps_max,"
-                 "nb_tentatives_max, indice, liste_perso, id_liste)"
-                " VALUES (%(id_joueur)s, %(nom_partie)s, %(score_final)s, %(mot_objectif)s,"
-                          "%(temps_max)s , %(nb_tentatives_max)s, %(indice)s, %(liste_perso)s, %(id_liste)s) ;"
-                ,{"id_joueur": id_joueur, "nom_partie" : nom_partie, "score_final" : score_final, "mot_objectif" : mot_objectif,
-                "nb_tentatives_max" : nb_tentatives_max, "temps_max": temps_max, "indice" : indice, "liste_perso" : liste_perso, "id_liste" : id_liste}
-            )
+            if id_liste!=None:
+                cursor.execute(
+                    "INSERT INTO partie(id_joueur, nom_partie, score_final, mot_objectif, temps_max,"
+                    "nb_tentatives_max, indice, liste_perso, id_liste)"
+                    " VALUES (%(id_joueur)s, %(nom_partie)s, %(score_final)s, %(mot_objectif)s,"
+                            "%(temps_max)s , %(nb_tentatives_max)s, %(indice)s, %(liste_perso)s, %(id_liste)s) ;"
+                    ,{"id_joueur": id_joueur, "nom_partie" : nom_partie, "score_final" : score_final, "mot_objectif" : mot_objectif,
+                    "nb_tentatives_max" : nb_tentatives_max, "temps_max": temps_max, "indice" : indice, "liste_perso" : liste_perso, "id_liste" : id_liste}
+                )
+            else : 
+
+                cursor.execute(
+                    "INSERT INTO partie(id_joueur, nom_partie, score_final, mot_objectif, temps_max,"
+                    "nb_tentatives_max, indice, liste_perso, id_liste)"
+                    " VALUES (%(id_joueur)s, %(nom_partie)s, %(score_final)s, %(mot_objectif)s,"
+                            "%(temps_max)s , %(nb_tentatives_max)s, %(indice)s, %(liste_perso)s, NULL) ;"
+                    ,{"id_joueur": id_joueur, "nom_partie" : nom_partie, "score_final" : score_final, "mot_objectif" : mot_objectif,
+                    "nb_tentatives_max" : nb_tentatives_max, "temps_max": temps_max, "indice" : indice, "liste_perso" : liste_perso}
+                )
 
             cursor.execute("commit;")
 
