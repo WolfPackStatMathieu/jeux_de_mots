@@ -1,3 +1,5 @@
+"""_summary_
+"""
 from fastapi import FastAPI
 import uvicorn
 # from src.dao.joueur_dao import JoueurDAO
@@ -18,7 +20,9 @@ kata.include_router(top10.router)
 
 @kata.get("/")
 async def root():
-    return({"message":"bonjour"})
+    """endpoint à la racine du webservice
+    """
+    return{"message":"bonjour"}
 
 
 if __name__=='__main__':
