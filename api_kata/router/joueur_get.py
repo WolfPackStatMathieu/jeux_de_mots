@@ -3,7 +3,6 @@
 # pylint: disable=no-name-in-module
 # pylint: disable=no-self-argument
 from fastapi import APIRouter
-# from fastapi import *
 from pydantic import BaseModel
 from src.dao.joueur_dao import JoueurDAO
 from src.dao.liste_dao import ListeDAO
