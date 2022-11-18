@@ -88,6 +88,20 @@ async def get_liste_by_id_joueur(id_joueur):
 #Créer une liste associée à un joueur
 @router.post("/{id_joueur}/liste/{name}")
 async def create_by_name(id_joueur, name):
+    """endpoint POST pour créer une liste associée à un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+    name : str
+        nom de la liste créée
+
+    Returns
+    -------
+    function
+        lance la création de la liste associée à un joueur en BDD
+    """
     liste_dao=ListeDAO()
     return liste_dao.creer(id_joueur, name)
 
@@ -95,21 +109,48 @@ async def create_by_name(id_joueur, name):
 #Obtenir le top 10 des meilleurs scores d'un joueur
 @router.get("/{id_joueur}/score")
 async def get_best_score(id_joueur):
+    """endpoint pour obtenir les 10 meilleurs scores d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+
+    Returns
+    -------
+    function
+        lance la requête en BDD pour obtenir le top10 du joueur
+    """
     score_dao=ScoreDAO()
     return score_dao.get_top_10_perso(id_joueur)
 
 #Obtenir la partie en cours d'un joueur
 @router.get("/{id_joueur}/partie_en_cours")
 async def get_partie_by_joueur(id_joueur):
+    """endpoint GET pour obtenir la partie en cours d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+    """
     partie_dao=PartieDAO()
     propositiondao=PropositionDAO()
-    id=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
-    partie=partie_dao.get_partie_by_id(id)
-    proposition=propositiondao.get_by_id_partie(id)
-    return(id,partie, proposition)
+    identifiant=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    partie=partie_dao.get_partie_by_id(identifiant)
+    proposition=propositiondao.get_by_id_partie(identifiant)
+    return(identifiant,partie, proposition)
 
 
 class PartieCreation(BaseModel):
+    # pylint: disable=too-few-public-methods
+    """classe PartieCreation pour la transmission d'informations
+
+    Parameters
+    ----------
+    BaseModel : BaseModel
+        classe mère
+    """
     nom_partie: str
     mot_objectif : str
     temps_max : float
@@ -118,13 +159,18 @@ class PartieCreation(BaseModel):
     liste_perso : bool
     id_liste : int
 
-# class PropositionCreation(BaseModel):
-#     liste_prop : list
-
-
 #Sauvegarder la partie en cours d'un joueur
 @router.post("/{id_joueur}/partie")
 async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
+    """_summary_
+
+    Parameters
+    ----------
+    id_joueur : _type_
+        _description_
+    partie : PartieCreation
+        _description_
+    """
     partie_dao=PartieDAO()
     nom_partie=partie.nom_partie
     mot_objectif=partie.mot_objectif
@@ -144,6 +190,20 @@ async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
 
 @router.post("/{id_joueur}/proposition/{proposition}")
 async def create_proposition_by_joueur(id_joueur, proposition):
+    """endpoint POST pour créer une proposition d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+    proposition : str
+        mot proposé par le joueur
+
+    Returns
+    -------
+    function
+        lance la création d'une proposition en BDD
+    """
     partie_dao=PartieDAO()
     proposition_dao=PropositionDAO()
     id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
@@ -152,6 +212,18 @@ async def create_proposition_by_joueur(id_joueur, proposition):
 
 @router.delete("/{id_joueur}/partie")
 async def delete_partie_by_joueur(id_joueur):
+    """endpoint DELETE pour supprimer la partie d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+
+    Returns
+    -------
+    fucntion
+        supprime la partie du joueur en BDD
+    """
     partie_dao=PartieDAO()
     id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
     return partie_dao.supprimer(id_partie)
@@ -161,5 +233,19 @@ async def delete_partie_by_joueur(id_joueur):
 #Ajouter un score à un joueur
 @router.post("/{id_joueur}/score/{score}")
 async def ajoute_score_joueur(id_joueur, score):
+    """endpoint POST pour ajouter un score à un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+    score : int
+        score à ajouter
+
+    Returns
+    -------
+    function
+        ajoute le score du joueur en BDD
+    """
     score_dao=ScoreDAO()
     return score_dao.ajouter(id_joueur, score)
