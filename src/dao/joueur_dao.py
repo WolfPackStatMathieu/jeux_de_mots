@@ -1,13 +1,13 @@
 """module DAO pour le joueur
 """
 
-from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class JoueurDAO():
     """classe DAO pour interagir avec la BDD au niveau du joueur
     """
     def get_pseudo_by_id(self, identifiant):
+        # pylint: disable=no-self-use
 
         '''Méthode get_pseudo_by_id
 
@@ -41,7 +41,7 @@ class JoueurDAO():
 # sans doute à supprimer car fait la même chose que
 # get_id_by_pseudo (si None => pseudo n'existe pas)
     def pseudo_existe(self, pseudo):
-
+        # pylint: disable=no-self-use
         '''Méthode vérifiant si un pseudo existe
 
         '''
@@ -57,13 +57,13 @@ class JoueurDAO():
 
         if res :
             return True
-        else :
-            return False
+
+        return False
 
 
 
     def create(self, pseudo):
-
+        # pylint: disable=no-self-use
         '''Méthode create
 
         Permet de créer un joueur
@@ -96,7 +96,14 @@ class JoueurDAO():
 
 
     def get_all_joueurs(self):
+        # pylint: disable=no-self-use
+        """permet d'obtenir tous les joueurs de la BDD
 
+        Returns
+        -------
+        list[list]
+            la liste de tous les joueurs avec leur id
+        """
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
@@ -108,7 +115,7 @@ class JoueurDAO():
         return res
 
     def get_id_by_pseudo(self, pseudo):
-
+        # pylint: disable=no-self-use
         '''Méthode get_id_by_pseudo
 
         Permet de retourner le id_joueur correspondant à un pseudo
