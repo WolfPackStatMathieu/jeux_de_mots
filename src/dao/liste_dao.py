@@ -1,19 +1,23 @@
-from src.utils.singleton import Singleton
+"""Module DAO pour les listes
+"""
+
 from src.dao.db_connection import DBConnection
 
 class ListeDAO():
-
-    def get_liste_by_id_joueur(self, id):
+    """classe pour accéder aux informations des listes en BDD
+    """
+    # pylint: disable=no-self-use
+    def get_liste_by_id_joueur(self, id_joueur):
 
         '''Méthode get_liste_by_id_joueur
-        
+
         Permet de retourner les listes associées à un id_joueur
-        
+
         Parameters
         ----------
-        id : int
+        id_joueur : int
             Identifiant du joueur
-        
+
         Returns
         --------
         liste : list
@@ -24,8 +28,8 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT id_liste, nom_liste FROM liste WHERE id_joueur = %(id)s"
-                , {"id": id}
+                "SELECT id_liste, nom_liste FROM liste WHERE id_joueur = %(id_joueur)s"
+                , {"id_joueur": id_joueur}
             )
 
             res = cursor.fetchall()
@@ -40,9 +44,9 @@ class ListeDAO():
     def creer(self, id_joueur, nom_liste):
 
         '''Méthode créer
-        
+
         Permet de créer une nouvelle liste associée à un joueur
-        
+
         Parameters
         ----------
 
@@ -51,7 +55,7 @@ class ListeDAO():
 
         nom_liste : str
             Nom de la liste saisi par le joueur
-        
+
         Returns
         --------
         liste : dict
@@ -69,21 +73,21 @@ class ListeDAO():
 
             cursor.execute("commit;")
 
-    
+
     def ajouter_mot(self, id_liste, id_mot):
 
         '''Méthode ajouter_mot
-        
+
         Permet d'ajouter un mot à une liste
-        
+
         Parameters
         ----------
         id_mot : int
             Identifiant du mot
-        
+
         id_liste : int
-            Identifiant de la liste de mots 
-        
+            Identifiant de la liste de mots
+
         Returns
         --------
         liste : list
@@ -99,18 +103,18 @@ class ListeDAO():
             )
             cursor.execute("commit;")
 
-    
-    def get_mots_by_id_liste(self, id):
+
+    def get_mots_by_id_liste(self, id_liste):
 
         '''Méthode get_mots_by_id_liste
-        
+
         Permet de retourner les mots associés à une liste
-        
+
         Parameters
         ----------
-        id : int
+        id_liste : int
             Identifiant de la liste
-        
+
         Returns
         --------
         liste : list
@@ -121,10 +125,11 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT mot FROM liste JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
-                                     " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
-                                     " WHERE liste.id_liste= %(id)s"
-                , {"id": id}
+                "SELECT mot FROM liste "
+                    "JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
+                    " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                    " WHERE liste.id_liste= %(id_liste)s"
+                , {"id_liste": id_liste}
             )
 
             res = cursor.fetchall()
@@ -137,18 +142,19 @@ class ListeDAO():
     def supprimer_mot(self, id_mot, id_liste):
 
         '''Méthode supprimer_mot
-        
-        Permet de supprimer un mot d'une liste (supprime le lien entre le mot et la liste dans la table passage_liste_mot)
-        
+
+        Permet de supprimer un mot d'une liste (supprime le
+        lien entre le mot et la liste dans la table passage_liste_mot)
+
         Parameters
         ----------
         id_mot : int
             Identifiant du mot à supprimer
-        
+
         id_liste : int
             Identifiant de la liste à laquelle le mot appartient
-        
-        
+
+
         Returns
         --------
 
@@ -166,17 +172,19 @@ class ListeDAO():
 
     def supprimer(self, id_liste):
 
-        '''Méthode supprimer 
-        
-        Permet de supprimer une liste (supprime tous les liens dans la table de passage passage_liste_mot puis supprime la liste de la table liste)
-        
+        '''Méthode supprimer
+
+        Permet de supprimer une liste (supprime tous
+        les liens dans la table de passage passage_liste_mot
+        puis supprime la liste de la table liste)
+
         Parameters
         ----------
 
         id_liste : int
             Identifiant de la liste à supprimer
-        
-        
+
+
         Returns
         --------
 
@@ -190,21 +198,21 @@ class ListeDAO():
                 "DELETE FROM liste"
                 " WHERE id_liste = (%(id_liste)s) ;"
                 , {"id_liste" : id_liste})
-            
+
             cursor.execute("commit;")
 
 
     def get_mots_by_nom_liste(self, nom_liste):
 
         '''Méthode get_mots_by_nom_liste
-        
+
         Permet de retourner les mots associés à une liste
-        
+
         Parameters
         ----------
         nom_liste : str
             Nom de la liste
-        
+
         Returns
         --------
         liste : dict
@@ -215,9 +223,10 @@ class ListeDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT mot FROM liste JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
-                                     " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
-                                     " WHERE liste.nom_liste= %(nom_liste)s"
+                "SELECT mot FROM liste"
+                    " JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
+                    " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                    " WHERE liste.nom_liste= %(nom_liste)s"
                 , {"nom_liste": nom_liste}
             )
 
@@ -228,10 +237,21 @@ class ListeDAO():
 
         return liste
 
-   
-    
-    def get_id_by_nom(self, nom_liste):
 
+
+    def get_id_by_nom(self, nom_liste):
+        """permet d'obtenir l'identifiant d'une liste en fournissant son nom
+
+        Parameters
+        ----------
+        nom_liste : str
+            nom de la liste
+
+        Returns
+        -------
+        int
+            identifiant de la liste
+        """
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -243,9 +263,20 @@ class ListeDAO():
             id_liste = res['id_liste']
 
         return id_liste
-    
-    def get_nom_by_id(self, id_liste):
 
+    def get_nom_by_id(self, id_liste):
+        """permet d'obtenir le nom d'une liste en fournissant son identifiant
+
+        Parameters
+        ----------
+        id_liste : int
+            identifiant de la liste
+
+        Returns
+        -------
+        str
+            nom de la liste
+        """
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -257,4 +288,3 @@ class ListeDAO():
             nom_liste = res['nom_liste']
 
         return nom_liste
-
