@@ -6,6 +6,7 @@ class PropositionDAO():
     """classe permettant d'accéder aux propositions en BDD
     """
     def get_by_id_partie(self,id_partie):
+        # pylint: disable=no-self-use
         """permet d'accéder aux propositions faites durant une partie
         en fournissant l'identifiant de la partie
 
@@ -34,7 +35,7 @@ class PropositionDAO():
         return liste_propositions
 
     def creer(self, id_partie, proposition):
-
+        # pylint: disable=no-self-use
         '''Méthode créer
         Permet d'ajouter une proposition
 
@@ -61,7 +62,7 @@ class PropositionDAO():
             cursor.execute("commit;")
 
     def supprimer_all(self, id_partie):
-
+        # pylint: disable=no-self-use
         '''Méthode supprimer_all
 
         Permet de supprimer toutes les propositions liées à une partie
