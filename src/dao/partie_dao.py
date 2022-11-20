@@ -20,8 +20,6 @@ class PartieDAO():
 
         id_joueur : int
             Identifiant du joueur
-
-
         Returns
         --------
 
