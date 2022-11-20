@@ -1,3 +1,6 @@
+"""Module de connexion à la BDD
+"""
+
 import os
 import dotenv
 import psycopg2
@@ -6,6 +9,7 @@ from psycopg2.extras import RealDictCursor
 from src.utils.singleton import Singleton
 
 class DBConnection(metaclass=Singleton):
+    # pylint: disable=too-few-public-methods
     """
     Technical class to open only one connection to the DB.
     """

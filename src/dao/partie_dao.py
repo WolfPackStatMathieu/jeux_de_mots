@@ -1,24 +1,25 @@
-from src.utils.singleton import Singleton
+"""permet d'accéder aux parties en BDD
+"""
 from src.dao.db_connection import DBConnection
 from src.dao.proposition_dao import PropositionDAO
 
 class PartieDAO():
-    
-    
+    # pylint: disable=no-self-use
+    """permet d'accéder aux partie en BDD
+    """
     def creer(self, id_joueur, nom_partie, score_final, mot_objectif, temps_max,
     nb_tentatives_max, indice, liste_perso, id_liste) :
+        #pylint: disable=too-many-arguments
 
         '''Méthode créer
-        
+
         Permet de créer une nouvelle partie liée à un joueur
-        
+
         Parameters
         ----------
 
         id_joueur : int
             Identifiant du joueur
-
-        
         Returns
         --------
 
@@ -27,29 +28,78 @@ class PartieDAO():
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
-            cursor.execute(
-                "INSERT INTO partie(id_joueur, nom_partie, score_final, mot_objectif, temps_max,"
-                 "nb_tentatives_max, indice, liste_perso, id_liste)"
-                " VALUES (%(id_joueur)s, %(nom_partie)s, %(score_final)s, %(mot_objectif)s,"
-                          "%(temps_max)s , %(nb_tentatives_max)s, %(indice)s, %(liste_perso)s, %(id_liste)s) ;"
-                ,{"id_joueur": id_joueur, "nom_partie" : nom_partie, "score_final" : score_final, "mot_objectif" : mot_objectif,
-                "nb_tentatives_max" : nb_tentatives_max, "temps_max": temps_max, "indice" : indice, "liste_perso" : liste_perso, "id_liste" : id_liste}
-            )
+            if id_liste is not None:
+                cursor.execute(
+                    "INSERT INTO partie(id_joueur, "
+                    "nom_partie, score_final, mot_objectif, temps_max,"
+                    "nb_tentatives_max, indice, liste_perso, id_liste)"
+                    " VALUES ("
+                    "%(id_joueur)s, "
+                    "%(nom_partie)s, "
+                    "%(score_final)s, "
+                    "%(mot_objectif)s,"
+                    "%(temps_max)s , "
+                    "%(nb_tentatives_max)s, "
+                    "%(indice)s, "
+                    "%(liste_perso)s, "
+                    "%(id_liste)s) ;"
+                    ,{"id_joueur": id_joueur,
+                    "nom_partie" : nom_partie,
+                    "score_final" : score_final,
+                    "mot_objectif" : mot_objectif,
+                    "nb_tentatives_max" : nb_tentatives_max,
+                    "temps_max": temps_max,
+                    "indice" : indice,
+                    "liste_perso" : liste_perso,
+                    "id_liste" : id_liste}
+                )
+            else :
+
+                cursor.execute(
+                    "INSERT INTO partie("
+                        "id_joueur, "
+                        "nom_partie, "
+                        "score_final, "
+                        "mot_objectif, "
+                        "temps_max,"
+                        "nb_tentatives_max, "
+                        "indice, "
+                        "liste_perso, "
+                        "id_liste)"
+                    " VALUES ("
+                        "%(id_joueur)s, "
+                        "%(nom_partie)s, "
+                        "%(score_final)s, "
+                        "%(mot_objectif)s,"
+                        "%(temps_max)s , "
+                        "%(nb_tentatives_max)s, "
+                        "%(indice)s, "
+                        "%(liste_perso)s, "
+                        "NULL) ;"
+                    ,{"id_joueur": id_joueur,
+                    "nom_partie" : nom_partie,
+                    "score_final" : score_final,
+                    "mot_objectif" : mot_objectif,
+                    "nb_tentatives_max" : nb_tentatives_max,
+                    "temps_max": temps_max,
+                    "indice" : indice,
+                    "liste_perso" : liste_perso}
+                )
 
             cursor.execute("commit;")
 
     def supprimer(self, id_partie):
 
         '''Méthode supprimer
-        
+
         Permet de supprimer une partie
-        
+
         Parameters
         ----------
         id_partie : int
             Identifiant de la partie
-        
-        
+
+
         Returns
         --------
 
@@ -67,7 +117,18 @@ class PartieDAO():
             cursor.execute("commit;")
 
     def get_partie_by_id(self, id_partie):
+        """permet d'obtenir une Partie en fournissant son identifiant
 
+        Parameters
+        ----------
+        id_partie : int
+            identifiant de la partie
+
+        Returns
+        -------
+        list
+            attributs d'une Partie
+        """
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -86,11 +147,23 @@ class PartieDAO():
                 liste.append(row["nb_tentatives_max"])
                 liste.append(row["indice"])
                 liste.append(row["liste_perso"])
-                liste.append(row["id_liste"])                        
+                liste.append(row["id_liste"])
         return liste
 
 
     def get_id_partie_en_cours_joueur(self,id_joueur):
+        """permet d'obtenir l'identifiant de la partie en cours d'un joueur
+
+        Parameters
+        ----------
+        id_joueur : int
+            identifiant du joueur
+
+        Returns
+        -------
+        int
+            identifiant de la partie du joueur
+        """
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
@@ -105,7 +178,7 @@ class PartieDAO():
 
         return id_partie
 
-    
+
 
 partie_dao=PartieDAO()
 # id=partie_dao.get_id_partie_en_cours_joueur(5)
