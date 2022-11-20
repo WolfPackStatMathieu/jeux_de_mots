@@ -1,3 +1,6 @@
+"""module Singleton, conseillé par le prof pour être sûr
+de n'avoir qu'une seule instance de créée.
+"""
 class Singleton(type):
     """
     -> https://refactoring.guru/fr/design-patterns/singleton

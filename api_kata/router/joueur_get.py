@@ -165,7 +165,7 @@ async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
 
     Parameters
     ----------
-    id_joueur : _type_
+    id_joueur : int
         _description_
     partie : PartieCreation
         _description_
