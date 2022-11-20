@@ -57,7 +57,7 @@ class PropositionDAO():
                 ,{"id_partie" : id_partie, "proposition": proposition}
             )
 
-            res = cursor.fetchone()
+            # res = cursor.fetchone()
             cursor.execute("commit;")
 
     def supprimer_all(self, id_partie):
