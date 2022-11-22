@@ -66,7 +66,7 @@ async def create_joueur(pseudo):
     joueur_dao=JoueurDAO()
     return joueur_dao.create(pseudo)
 
-#Obtenir les listes d'un joueur (nom et contenu)
+#Obtenir les listes d'un joueur (noms et contenus des listes)
 @router.get("/{id_joueur}/liste")
 async def get_liste_by_id_joueur(id_joueur):
     """endpoint GET pour obtenir les listes de mots d'un joueur
@@ -77,12 +77,12 @@ async def get_liste_by_id_joueur(id_joueur):
         id du joueur
     """
     liste_dao=ListeDAO()
-    nom=liste_dao.get_liste_by_id_joueur(id_joueur)[0]
-    id_joueur =liste_dao.get_liste_by_id_joueur(id_joueur)[1]
-    contenu=[]
-    for nom_liste in nom:
-        contenu.append(liste_dao.get_mots_by_nom_liste(nom_liste))
-    return(nom, contenu, id_joueur)
+    nom = liste_dao.get_liste_by_id_joueur(id_joueur)[0]
+    id = liste_dao.get_liste_by_id_joueur(id_joueur)[1]
+    contenu = []
+    for id_liste in id:
+        contenu.append(liste_dao.get_mots_by_id_liste(id_liste))
+    return(nom, contenu, id)
 
 #Créer une liste associée à un joueur
 @router.post("/{id_joueur}/liste/{name}")

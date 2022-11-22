@@ -9,7 +9,7 @@ router = APIRouter(
     tags=['liste']
 )
 
-#Obtenir une liste par son identifiant
+#Obtenir le nom d'une liste et le contenu de la liste par son identifiant
 @router.get("/{id_liste}")
 async def get_mots_by_id_liste(id_liste):
     """permet d'obtenir les mots d'une liste

@@ -202,7 +202,7 @@ class ListeDAO():
             cursor.execute("commit;")
 
 
-    def get_mots_by_nom_liste(self, nom_liste):
+    #def get_mots_by_nom_liste(self, nom_liste):
 
         '''Méthode get_mots_by_nom_liste
 
