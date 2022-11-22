@@ -150,13 +150,11 @@ class PartieCreation(BaseModel):
     BaseModel : BaseModel
         classe mère
     """
-    nom_partie: str
     mot_objectif : str
-    temps_max : float
     nb_tentatives_max : int
     indice : bool
     liste_perso : bool
-    id_liste : int
+    temps_max : int
 
 #Sauvegarder la partie en cours d'un joueur
 @router.post("/{id_joueur}/partie")
@@ -171,21 +169,15 @@ async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
         _description_
     """
     partie_dao=PartieDAO()
-    nom_partie=partie.nom_partie
     mot_objectif=partie.mot_objectif
-    temps_max=partie.temps_max
     nb_tentatives_max=partie.nb_tentatives_max
     indice=partie.indice
     liste_perso=partie.liste_perso
-    id_liste=partie.id_liste
+    temps_max=partie.temps_max
     return(partie_dao.creer(id_joueur,
-                            nom_partie,
-                            0,
                             mot_objectif,
-                            temps_max,
                             nb_tentatives_max,
-                            indice, liste_perso,
-                            id_liste))
+                            indice, liste_perso, temps_max))
 
 @router.post("/{id_joueur}/proposition/{proposition}")
 async def create_proposition_by_joueur(id_joueur, proposition):
