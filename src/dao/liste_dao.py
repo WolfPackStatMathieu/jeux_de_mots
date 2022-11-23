@@ -201,30 +201,6 @@ class ListeDAO():
 
             cursor.execute("commit;")
 
-    def get_id_by_nom(self, nom_liste):
-        """permet d'obtenir l'identifiant d'une liste en fournissant son nom
-
-        Parameters
-        ----------
-        nom_liste : str
-            nom de la liste
-
-        Returns
-        -------
-        int
-            identifiant de la liste
-        """
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT id_liste FROM liste WHERE nom_liste = %(nom_liste)s"
-                , {"nom_liste": nom_liste}
-            )
-
-            res = cursor.fetchone()
-            id_liste = res['id_liste']
-
-        return id_liste
 
     def get_nom_by_id(self, id_liste):
         """permet d'obtenir le nom d'une liste en fournissant son identifiant

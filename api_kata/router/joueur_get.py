@@ -64,7 +64,7 @@ async def create_joueur(pseudo):
         fonction de création d'un joueur en BDD
     """
     joueur_dao=JoueurDAO()
-    return joueur_dao.create(pseudo)
+    return joueur_dao.creer(pseudo)
 
 #Obtenir les listes d'un joueur (noms et contenus des listes)
 @router.get("/{id_joueur}/liste")

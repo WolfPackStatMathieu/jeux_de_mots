@@ -136,9 +136,3 @@ class PartieDAO():
 
         return id_partie
 
-
-
-# partie_dao=PartieDAO()
-# id=partie_dao.get_id_partie_en_cours_joueur(5)
-# print(partie_dao.get_partie_by_id(id))
-# partie_dao.creer(4, "TEST", 6, True, False, 1)
