@@ -1,24 +1,24 @@
 # from src.utils.singleton import Singleton
 # from src.dao.db_connection import DBConnection
-# from src.dao.joueur_dao import JoueurDAO
+#from src.dao.joueur_dao import JoueurDAO
 # from src.dao.liste_dao import ListeDAO
 # from src.dao.mot_dao import MotDAO
 # from src.dao.proposition_dao import PropositionDAO
 # from src.dao.partie_dao import PartieDAO
-# from src.dao.score_dao import ScoreDAO
+#from src.dao.score_dao import ScoreDAO
 # import re
 
 
-# print(PropositionDAO().get_by_id_partie(1))
+#print(PropositionDAO().get_by_id_partie(1))
 
 # #ScoreDAO().ajouter(5, 20)
-# #print(ScoreDAO().get_top_10_perso(5))
+#print(ScoreDAO().get_top_10_general())
 # #ScoreDAO().ajouter(5, 27)
 # #PartieDAO().supprimer(3)
 
 # #PartieDAO().creer(4, 'ma 1ère partie', 0, 'family', 25, 'anglais', 7, False, False)
 
-# #print(JoueurDAO().get_id_by_pseudo('Linh-Da'))
+#print(JoueurDAO().get_pseudo_by_id(1))
 # #PropositionDAO().supprimer_all(1)
 # #PropositionDAO().creer(3, 'ahehehe')
 # #PropositionDAO().creer(3, 'ahdhehe')

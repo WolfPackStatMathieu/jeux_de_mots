@@ -6,7 +6,7 @@ from src.dao.db_connection import DBConnection
 class JoueurDAO():
     """classe DAO pour interagir avec la BDD au niveau du joueur
     """
-    def get_pseudo_by_id(self, identifiant):
+    def get_pseudo_by_id(self, id_joueur):
         # pylint: disable=no-self-use
 
         '''Méthode get_pseudo_by_id
@@ -28,8 +28,8 @@ class JoueurDAO():
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT pseudo FROM joueur WHERE id_joueur = %(identifiant)s"
-                , {"id": identifiant}
+                "SELECT pseudo FROM joueur WHERE id_joueur = %(id_joueur)s"
+                , {"id_joueur": id_joueur}
             )
 
             res = cursor.fetchone()
