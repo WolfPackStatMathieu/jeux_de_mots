@@ -15,6 +15,24 @@ router = APIRouter(
     tags=['joueur']
 )
 
+#Créer un joueur
+@router.post("/{pseudo}")
+async def create_joueur(pseudo):
+    """endpoint POST pour créer un joueur
+
+    Parameters
+    ----------
+    pseudo : str
+        pseudo du joueur
+
+    Returns
+    -------
+    function
+        fonction de création d'un joueur en BDD
+    """
+    joueur_dao=JoueurDAO()
+    return joueur_dao.creer(pseudo)
+
 #Obtenir le pseudo d'un joueur
 @router.get("/{id_joueur}",
           response_description='la string du pseudo du joueur demandé')
@@ -48,42 +66,6 @@ async def get_joueur_by_pseudo(pseudo):
     # top_ten=score_dao.get_top_10_perso(id_joueur)
     return id_joueur
 
-#Créer un joueur
-@router.post("/{pseudo}")
-async def create_joueur(pseudo):
-    """endpoint POST pour créer un joueur
-
-    Parameters
-    ----------
-    pseudo : str
-        pseudo du joueur
-
-    Returns
-    -------
-    function
-        fonction de création d'un joueur en BDD
-    """
-    joueur_dao=JoueurDAO()
-    return joueur_dao.creer(pseudo)
-
-#Obtenir les listes d'un joueur (noms et contenus des listes)
-@router.get("/{id_joueur}/liste")
-async def get_liste_by_id_joueur(id_joueur):
-    """endpoint GET pour obtenir les listes de mots d'un joueur
-
-    Parameters
-    ----------
-    id_joueur : int
-        id du joueur
-    """
-    liste_dao=ListeDAO()
-    nom = liste_dao.get_liste_by_id_joueur(id_joueur)[0]
-    id = liste_dao.get_liste_by_id_joueur(id_joueur)[1]
-    contenu = []
-    for id_liste in id:
-        contenu.append(liste_dao.get_mots_by_id_liste(id_liste))
-    return(nom, contenu, id)
-
 #Créer une liste associée à un joueur
 @router.post("/{id_joueur}/liste/{name}")
 async def create_by_name(id_joueur, name):
@@ -104,41 +86,23 @@ async def create_by_name(id_joueur, name):
     liste_dao=ListeDAO()
     return liste_dao.creer(id_joueur, name)
 
-
-#Obtenir le top 10 des meilleurs scores d'un joueur
-@router.get("/{id_joueur}/score")
-async def get_best_score(id_joueur):
-    """endpoint pour obtenir les 10 meilleurs scores d'un joueur
-
-    Parameters
-    ----------
-    id_joueur : int
-        id du joueur
-
-    Returns
-    -------
-    function
-        lance la requête en BDD pour obtenir le top10 du joueur
-    """
-    score_dao=ScoreDAO()
-    return score_dao.get_top_10_perso(id_joueur)
-
-#Obtenir la partie en cours d'un joueur
-@router.get("/{id_joueur}/partie_en_cours")
-async def get_partie_by_joueur(id_joueur):
-    """endpoint GET pour obtenir la partie en cours d'un joueur
+#Obtenir les listes d'un joueur (noms et contenus des listes)
+@router.get("/{id_joueur}/liste")
+async def get_liste_by_id_joueur(id_joueur):
+    """endpoint GET pour obtenir les listes de mots d'un joueur
 
     Parameters
     ----------
     id_joueur : int
         id du joueur
     """
-    partie_dao=PartieDAO()
-    propositiondao=PropositionDAO()
-    identifiant=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
-    partie=partie_dao.get_partie_by_id(identifiant)
-    proposition=propositiondao.get_by_id_partie(identifiant)
-    return(identifiant,partie, proposition)
+    liste_dao=ListeDAO()
+    nom = liste_dao.get_liste_by_id_joueur(id_joueur)[0]
+    id = liste_dao.get_liste_by_id_joueur(id_joueur)[1]
+    contenu = []
+    for id_liste in id:
+        contenu.append(liste_dao.get_mots_by_id_liste(id_liste))
+    return(nom, contenu, id)
 
 
 class PartieCreation(BaseModel):
@@ -179,6 +143,43 @@ async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
                             nb_tentatives_max,
                             indice, liste_perso, temps_max))
 
+#Obtenir la partie en cours d'un joueur
+@router.get("/{id_joueur}/partie_en_cours")
+async def get_partie_by_joueur(id_joueur):
+    """endpoint GET pour obtenir la partie en cours d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+    """
+    partie_dao=PartieDAO()
+    propositiondao=PropositionDAO()
+    identifiant=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    partie=partie_dao.get_partie_by_id(identifiant)
+    proposition=propositiondao.get_by_id_partie(identifiant)
+    return(identifiant,partie, proposition)
+
+#Supprimer la partie d'un joueur
+@router.delete("/{id_joueur}/partie")
+async def delete_partie_by_joueur(id_joueur):
+    """endpoint DELETE pour supprimer la partie d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+
+    Returns
+    -------
+    fucntion
+        supprime la partie du joueur en BDD
+    """
+    partie_dao=PartieDAO()
+    id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
+    return partie_dao.supprimer(id_partie)
+
+#Créer une proposition d'un joueur dans une partie
 @router.post("/{id_joueur}/proposition/{proposition}")
 async def create_proposition_by_joueur(id_joueur, proposition):
     """endpoint POST pour créer une proposition d'un joueur
@@ -200,27 +201,6 @@ async def create_proposition_by_joueur(id_joueur, proposition):
     id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
     return proposition_dao.creer(id_partie, proposition)
 
-
-@router.delete("/{id_joueur}/partie")
-async def delete_partie_by_joueur(id_joueur):
-    """endpoint DELETE pour supprimer la partie d'un joueur
-
-    Parameters
-    ----------
-    id_joueur : int
-        id du joueur
-
-    Returns
-    -------
-    fucntion
-        supprime la partie du joueur en BDD
-    """
-    partie_dao=PartieDAO()
-    id_partie=partie_dao.get_id_partie_en_cours_joueur(id_joueur)
-    return partie_dao.supprimer(id_partie)
-
-
-
 #Ajouter un score à un joueur
 @router.post("/{id_joueur}/score/{score}")
 async def ajoute_score_joueur(id_joueur, score):
@@ -240,3 +220,21 @@ async def ajoute_score_joueur(id_joueur, score):
     """
     score_dao=ScoreDAO()
     return score_dao.ajouter(id_joueur, score)
+
+#Obtenir le top 10 des meilleurs scores d'un joueur
+@router.get("/{id_joueur}/score")
+async def get_best_score(id_joueur):
+    """endpoint pour obtenir les 10 meilleurs scores d'un joueur
+
+    Parameters
+    ----------
+    id_joueur : int
+        id du joueur
+
+    Returns
+    -------
+    function
+        lance la requête en BDD pour obtenir le top10 du joueur
+    """
+    score_dao=ScoreDAO()
+    return score_dao.get_top_10_perso(id_joueur)

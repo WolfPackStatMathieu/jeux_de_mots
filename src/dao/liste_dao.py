@@ -1,9 +1,9 @@
 """Module DAO pour les listes
 """
-
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
-class ListeDAO():
+class ListeDAO(metaclass=Singleton):
     """classe pour accéder aux informations des listes en BDD
     """
     # pylint: disable=no-self-use
