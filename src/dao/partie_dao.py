@@ -1,5 +1,6 @@
 """permet d'accéder aux parties en BDD
 """
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 from src.dao.proposition_dao import PropositionDAO
 

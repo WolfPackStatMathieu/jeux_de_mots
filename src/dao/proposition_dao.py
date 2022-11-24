@@ -1,5 +1,6 @@
 """permet d'accéder aux propositions en BDD
 """
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class PropositionDAO(metaclass=Singleton):

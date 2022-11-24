@@ -1,6 +1,7 @@
 """module DAO pour accéder aux mots en BDD
 """
 import re #import regex
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class MotDAO(metaclass=Singleton):

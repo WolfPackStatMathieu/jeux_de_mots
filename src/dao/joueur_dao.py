@@ -1,6 +1,6 @@
 """module DAO pour le joueur
 """
-
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class JoueurDAO(metaclass=Singleton):

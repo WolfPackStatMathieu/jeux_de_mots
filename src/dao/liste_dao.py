@@ -1,6 +1,6 @@
 """Module DAO pour les listes
 """
-
+from src.utils.singleton import Singleton
 from src.dao.db_connection import DBConnection
 
 class ListeDAO(metaclass=Singleton):
