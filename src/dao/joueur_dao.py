@@ -3,7 +3,7 @@
 
 from src.dao.db_connection import DBConnection
 
-class JoueurDAO():
+class JoueurDAO(metaclass=Singleton):
     """classe DAO pour interagir avec la BDD au niveau du joueur
     """
     def get_pseudo_by_id(self, id_joueur):

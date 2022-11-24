@@ -3,7 +3,7 @@
 from src.dao.db_connection import DBConnection
 from src.dao.joueur_dao import JoueurDAO
 # pylint: disable=no-self-use
-class ScoreDAO():
+class ScoreDAO(metaclass=Singleton):
     """permet d'accéder aux scores en BDD
     """
     def ajouter(self, id_joueur, score):

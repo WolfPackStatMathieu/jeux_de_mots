@@ -2,7 +2,7 @@
 """
 from src.dao.db_connection import DBConnection
 
-class PropositionDAO():
+class PropositionDAO(metaclass=Singleton):
     """classe permettant d'accéder aux propositions en BDD
     """
     def get_by_id_partie(self,id_partie):

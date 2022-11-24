@@ -3,7 +3,7 @@
 import re #import regex
 from src.dao.db_connection import DBConnection
 
-class MotDAO():
+class MotDAO(metaclass=Singleton):
     # pylint: disable=no-self-use
     """permet d'accéder aux mots en BDD
     """
