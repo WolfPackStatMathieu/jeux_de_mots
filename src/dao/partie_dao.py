@@ -7,8 +7,8 @@ class PartieDAO():
     # pylint: disable=no-self-use
     """permet d'accéder aux partie en BDD
     """
-    def creer(self, id_joueur, nom_partie, score_final, mot_objectif, temps_max,
-    nb_tentatives_max, indice, liste_perso, id_liste) :
+    
+    def creer(self, id_joueur, mot_objectif, nb_tentatives_max, indice, liste_perso, temps_max) :
         #pylint: disable=too-many-arguments
 
         '''Méthode créer
@@ -28,65 +28,26 @@ class PartieDAO():
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
-            if id_liste is not None:
                 cursor.execute(
                     "INSERT INTO partie(id_joueur, "
-                    "nom_partie, score_final, mot_objectif, temps_max,"
-                    "nb_tentatives_max, indice, liste_perso, id_liste)"
+                    "mot_objectif, temps_max,"
+                    "nb_tentatives_max, indice, liste_perso)"
                     " VALUES ("
                     "%(id_joueur)s, "
-                    "%(nom_partie)s, "
-                    "%(score_final)s, "
                     "%(mot_objectif)s,"
                     "%(temps_max)s , "
                     "%(nb_tentatives_max)s, "
                     "%(indice)s, "
-                    "%(liste_perso)s, "
-                    "%(id_liste)s) ;"
+                    "%(liste_perso)s); "
                     ,{"id_joueur": id_joueur,
-                    "nom_partie" : nom_partie,
-                    "score_final" : score_final,
-                    "mot_objectif" : mot_objectif,
-                    "nb_tentatives_max" : nb_tentatives_max,
-                    "temps_max": temps_max,
-                    "indice" : indice,
-                    "liste_perso" : liste_perso,
-                    "id_liste" : id_liste}
-                )
-            else :
-
-                cursor.execute(
-                    "INSERT INTO partie("
-                        "id_joueur, "
-                        "nom_partie, "
-                        "score_final, "
-                        "mot_objectif, "
-                        "temps_max,"
-                        "nb_tentatives_max, "
-                        "indice, "
-                        "liste_perso, "
-                        "id_liste)"
-                    " VALUES ("
-                        "%(id_joueur)s, "
-                        "%(nom_partie)s, "
-                        "%(score_final)s, "
-                        "%(mot_objectif)s,"
-                        "%(temps_max)s , "
-                        "%(nb_tentatives_max)s, "
-                        "%(indice)s, "
-                        "%(liste_perso)s, "
-                        "NULL) ;"
-                    ,{"id_joueur": id_joueur,
-                    "nom_partie" : nom_partie,
-                    "score_final" : score_final,
                     "mot_objectif" : mot_objectif,
                     "nb_tentatives_max" : nb_tentatives_max,
                     "temps_max": temps_max,
                     "indice" : indice,
                     "liste_perso" : liste_perso}
                 )
+                cursor.execute("commit;")
 
-            cursor.execute("commit;")
 
     def supprimer(self, id_partie):
 
@@ -139,15 +100,12 @@ class PartieDAO():
             res = cursor.fetchall()
             liste=[]
             for row in res:
-                liste.append(row["score_final"])
-                liste.append(row["nom_partie"])
                 liste.append(row["id_joueur"])
                 liste.append(row["mot_objectif"])
-                liste.append(row["temps_max"])
                 liste.append(row["nb_tentatives_max"])
                 liste.append(row["indice"])
                 liste.append(row["liste_perso"])
-                liste.append(row["id_liste"])
+                liste.append(row["temps_max"])
         return liste
 
 
@@ -178,9 +136,3 @@ class PartieDAO():
 
         return id_partie
 
-
-
-partie_dao=PartieDAO()
-# id=partie_dao.get_id_partie_en_cours_joueur(5)
-# print(partie_dao.get_partie_by_id(id))
-# partie_dao.creer(2, "test2", 0.0, "ESSAI", 8, 6, True, False, None)

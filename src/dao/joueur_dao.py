@@ -38,33 +38,10 @@ class JoueurDAO():
 
         return pseudo
 
-# sans doute à supprimer car fait la même chose que
-# get_id_by_pseudo (si None => pseudo n'existe pas)
-    def pseudo_existe(self, pseudo):
+
+    def creer(self, pseudo):
         # pylint: disable=no-self-use
-        '''Méthode vérifiant si un pseudo existe
-
-        '''
-
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT id_joueur FROM joueur WHERE pseudo = %(pseudo)s"
-                , {"pseudo": pseudo}
-            )
-
-            res = cursor.fetchone()
-
-        if res :
-            return True
-
-        return False
-
-
-
-    def create(self, pseudo):
-        # pylint: disable=no-self-use
-        '''Méthode create
+        '''Méthode créer
 
         Permet de créer un joueur
 
@@ -94,25 +71,6 @@ class JoueurDAO():
             cursor.execute("commit;")
         #return res
 
-
-    def get_all_joueurs(self):
-        # pylint: disable=no-self-use
-        """permet d'obtenir tous les joueurs de la BDD
-
-        Returns
-        -------
-        list[list]
-            la liste de tous les joueurs avec leur id
-        """
-
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT * FROM joueur " )
-
-            res = cursor.fetchall()
-
-        return res
 
     def get_id_by_pseudo(self, pseudo):
         # pylint: disable=no-self-use

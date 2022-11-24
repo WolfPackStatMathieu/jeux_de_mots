@@ -141,31 +141,4 @@ class ScoreDAO():
             dernier_meilleur_score = res[0]
         return ([dernier_meilleur_score["score"], dernier_meilleur_score["id_score"]])
 
-    def get_all_perso(self, id_joueur):
-        """permet d'obtenir tous les scores du joueur,
-        par ordre décroissant
 
-        Parameters
-        ----------
-        id_joueur : int
-            identifiant du joueur
-
-        Returns
-        -------
-        list
-            la liste de tous les scores du joueur
-        """
-        connection = DBConnection().connection
-        with connection.cursor() as cursor :
-            cursor.execute(
-                "SELECT score"
-                " FROM score"
-                " WHERE id_joueur = (%(id_joueur)s)"
-                " ORDER BY score DESC ;"
-                ,{"id_joueur": id_joueur})
-
-            res=cursor.fetchall()
-            liste=[]
-            for row in res:
-                liste.append(row["score"])
-        return liste

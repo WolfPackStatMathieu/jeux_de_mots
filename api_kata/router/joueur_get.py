@@ -64,9 +64,9 @@ async def create_joueur(pseudo):
         fonction de création d'un joueur en BDD
     """
     joueur_dao=JoueurDAO()
-    return joueur_dao.create(pseudo)
+    return joueur_dao.creer(pseudo)
 
-#Obtenir les listes d'un joueur (nom et contenu)
+#Obtenir les listes d'un joueur (noms et contenus des listes)
 @router.get("/{id_joueur}/liste")
 async def get_liste_by_id_joueur(id_joueur):
     """endpoint GET pour obtenir les listes de mots d'un joueur
@@ -77,12 +77,12 @@ async def get_liste_by_id_joueur(id_joueur):
         id du joueur
     """
     liste_dao=ListeDAO()
-    nom=liste_dao.get_liste_by_id_joueur(id_joueur)[0]
-    id_joueur =liste_dao.get_liste_by_id_joueur(id_joueur)[1]
-    contenu=[]
-    for nom_liste in nom:
-        contenu.append(liste_dao.get_mots_by_nom_liste(nom_liste))
-    return(nom, contenu, id_joueur)
+    nom = liste_dao.get_liste_by_id_joueur(id_joueur)[0]
+    id = liste_dao.get_liste_by_id_joueur(id_joueur)[1]
+    contenu = []
+    for id_liste in id:
+        contenu.append(liste_dao.get_mots_by_id_liste(id_liste))
+    return(nom, contenu, id)
 
 #Créer une liste associée à un joueur
 @router.post("/{id_joueur}/liste/{name}")
@@ -150,13 +150,11 @@ class PartieCreation(BaseModel):
     BaseModel : BaseModel
         classe mère
     """
-    nom_partie: str
     mot_objectif : str
-    temps_max : float
     nb_tentatives_max : int
     indice : bool
     liste_perso : bool
-    id_liste : int
+    temps_max : int
 
 #Sauvegarder la partie en cours d'un joueur
 @router.post("/{id_joueur}/partie")
@@ -171,21 +169,15 @@ async def create_partie_by_joueur(id_joueur, partie : PartieCreation):
         _description_
     """
     partie_dao=PartieDAO()
-    nom_partie=partie.nom_partie
     mot_objectif=partie.mot_objectif
-    temps_max=partie.temps_max
     nb_tentatives_max=partie.nb_tentatives_max
     indice=partie.indice
     liste_perso=partie.liste_perso
-    id_liste=partie.id_liste
+    temps_max=partie.temps_max
     return(partie_dao.creer(id_joueur,
-                            nom_partie,
-                            0,
                             mot_objectif,
-                            temps_max,
                             nb_tentatives_max,
-                            indice, liste_perso,
-                            id_liste))
+                            indice, liste_perso, temps_max))
 
 @router.post("/{id_joueur}/proposition/{proposition}")
 async def create_proposition_by_joueur(id_joueur, proposition):
