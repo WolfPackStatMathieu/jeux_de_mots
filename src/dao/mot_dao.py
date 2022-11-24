@@ -54,7 +54,7 @@ class MotDAO():
             Le mot créé
         '''
 
-        regex = "^[A-zÀ-ú\-]+$"
+        regex = "^[A-zÀ-ú]+$"
         mot_a_tester = mot
         resultat = re.match(regex, mot_a_tester)
 
