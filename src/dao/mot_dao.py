@@ -27,7 +27,7 @@ class MotDAO(metaclass=Singleton):
         connection = DBConnection().connection
         with connection.cursor() as cursor :
             cursor.execute(
-                "SELECT id_mot FROM mots WHERE mot = %(mot)s"
+                "SELECT id_mot FROM mot WHERE mot = %(mot)s"
                 , {"mot": mot}
             )
             id_mot=None
@@ -68,7 +68,7 @@ class MotDAO(metaclass=Singleton):
             connection = DBConnection().connection
             with connection.cursor() as cursor :
                 cursor.execute(
-                    "INSERT INTO mots(mot)"
+                    "INSERT INTO mot(mot)"
                     " VALUES (%(mot)s) RETURNING id_mot, mot;"
                     , {"mot": mot}
                 )
