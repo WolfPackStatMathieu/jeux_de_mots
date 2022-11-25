@@ -79,4 +79,3 @@ class MotDAO(metaclass=Singleton):
                 nouveau_mot = res
 
         return nouveau_mot
-
