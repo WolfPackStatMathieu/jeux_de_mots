@@ -45,9 +45,6 @@ class PropositionDAO(metaclass=Singleton):
         proposition : str
             Mot entré par le joueur
 
-        Returns
-        --------
-
 
         '''
 
@@ -59,7 +56,6 @@ class PropositionDAO(metaclass=Singleton):
                 ,{"id_partie" : id_partie, "proposition": proposition}
             )
 
-            # res = cursor.fetchone()
             cursor.execute("commit;")
 
     def supprimer_all(self, id_partie):
@@ -75,9 +71,6 @@ class PropositionDAO(metaclass=Singleton):
             Identifiant de la partie
 
 
-        Returns
-        --------
-
         '''
 
         connection = DBConnection().connection
@@ -88,5 +81,3 @@ class PropositionDAO(metaclass=Singleton):
                 , {"id_partie": id_partie}
             )
             cursor.execute("commit;")
-
-

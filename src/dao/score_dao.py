@@ -136,10 +136,5 @@ class ScoreDAO(metaclass=Singleton):
                 , {"id_joueur": id_joueur})
 
             res = cursor.fetchmany(10)
-        #     dernier_meilleur_score = res[0]
-
-        # return dernier_meilleur_score
             dernier_meilleur_score = res[0]
         return ([dernier_meilleur_score["score"], dernier_meilleur_score["id_score"]])
-
-

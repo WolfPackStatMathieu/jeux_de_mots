@@ -127,7 +127,7 @@ class ListeDAO(metaclass=Singleton):
             cursor.execute(
                 "SELECT mot FROM liste "
                     "JOIN passage_liste_mot ON liste.id_liste = passage_liste_mot.id_liste"
-                    " JOIN mots on passage_liste_mot.id_mot = mots.id_mot"
+                    " JOIN mot on passage_liste_mot.id_mot = mot.id_mot"
                     " WHERE liste.id_liste= %(id_liste)s"
                 , {"id_liste": id_liste}
             )

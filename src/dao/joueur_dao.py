@@ -53,11 +53,6 @@ class JoueurDAO(metaclass=Singleton):
         pseudo :
             Pseudo saisi par le joueur
 
-        Returns
-        --------
-        joueur :
-
-
         '''
 
         connection = DBConnection().connection
@@ -67,9 +62,7 @@ class JoueurDAO(metaclass=Singleton):
                     " VALUES (%(pseudo)s) RETURNING id_joueur, pseudo;"
                     ,{"pseudo": pseudo})
 
-                #res = cursor.fetchone()
             cursor.execute("commit;")
-        #return res
 
 
     def get_id_by_pseudo(self, pseudo):

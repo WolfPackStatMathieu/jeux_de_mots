@@ -120,7 +120,7 @@ class PartieDAO(metaclass=Singleton):
 
         Returns
         -------
-        int
+        id_partie : int
             identifiant de la partie du joueur
         """
         connection = DBConnection().connection
@@ -136,4 +136,3 @@ class PartieDAO(metaclass=Singleton):
                 id_partie = res['id_partie']
 
         return id_partie
-
