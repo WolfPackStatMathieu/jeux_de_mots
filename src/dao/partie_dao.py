@@ -8,7 +8,7 @@ class PartieDAO(metaclass=Singleton):
     # pylint: disable=no-self-use
     """permet d'accéder aux partie en BDD
     """
-    
+
     def creer(self, id_joueur, mot_objectif, nb_tentatives_max, indice, liste_perso, temps_max) :
         #pylint: disable=too-many-arguments
 
@@ -29,25 +29,25 @@ class PartieDAO(metaclass=Singleton):
 
         connection = DBConnection().connection
         with connection.cursor() as cursor :
-                cursor.execute(
-                    "INSERT INTO partie(id_joueur, "
-                    "mot_objectif, temps_max,"
-                    "nb_tentatives_max, indice, liste_perso)"
-                    " VALUES ("
-                    "%(id_joueur)s, "
-                    "%(mot_objectif)s,"
-                    "%(temps_max)s , "
-                    "%(nb_tentatives_max)s, "
-                    "%(indice)s, "
-                    "%(liste_perso)s); "
-                    ,{"id_joueur": id_joueur,
-                    "mot_objectif" : mot_objectif,
-                    "nb_tentatives_max" : nb_tentatives_max,
-                    "temps_max": temps_max,
-                    "indice" : indice,
-                    "liste_perso" : liste_perso}
-                )
-                cursor.execute("commit;")
+            cursor.execute(
+                "INSERT INTO partie(id_joueur, "
+                "mot_objectif, temps_max,"
+                "nb_tentatives_max, indice, liste_perso)"
+                " VALUES ("
+                "%(id_joueur)s, "
+                "%(mot_objectif)s,"
+                "%(temps_max)s , "
+                "%(nb_tentatives_max)s, "
+                "%(indice)s, "
+                "%(liste_perso)s); "
+                ,{"id_joueur": id_joueur,
+                "mot_objectif" : mot_objectif,
+                "nb_tentatives_max" : nb_tentatives_max,
+                "temps_max": temps_max,
+                "indice" : indice,
+                "liste_perso" : liste_perso}
+            )
+            cursor.execute("commit;")
 
 
     def supprimer(self, id_partie):
